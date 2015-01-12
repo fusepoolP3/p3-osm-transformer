@@ -32,13 +32,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     
     private static final Logger log = LoggerFactory.getLogger(OsmRdfTransformer.class);
     
-    final String dataUrl;
-    
-    OsmRdfTransformer(String dataUrl) {
-        this.dataUrl = dataUrl;
-    }
-
-    /**
+     /**
      * Set the supported input format for the data sent directly by the client
      */
     @Override
@@ -71,6 +65,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         
         // graph containing the data feched by the url if provided.
         TripleCollection dataGraph = null;
+        
+        String dataUrl = entity.getRequest().getParameter(DATA_QUERY_PARAM);
         
         // OSM XML parser
         OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
