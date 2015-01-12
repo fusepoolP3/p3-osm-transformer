@@ -6,6 +6,7 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>p3-osm-transformer</name>
+  <description>Provides a geocoding service based on OpenStreetMap data.</description>
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -132,4 +133,5 @@
         </dependency>
         
     </dependencies>
+  
 </project>
