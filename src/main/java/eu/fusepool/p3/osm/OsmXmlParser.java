@@ -23,6 +23,8 @@ import org.apache.clerezza.rdf.core.impl.SimpleMGraph;
 import org.apache.clerezza.rdf.core.impl.TripleImpl;
 import org.apache.clerezza.rdf.ontologies.RDF;
 import org.apache.clerezza.rdf.ontologies.RDFS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -38,6 +40,8 @@ public class OsmXmlParser {
     
     Document doc = null;
     Map<String,OsmWay> osmWayNodeMap = null;
+    
+    private static final Logger log = LoggerFactory.getLogger(OsmXmlParser.class);
     
     public OsmXmlParser(String osmUrl) throws IOException{
         try {
@@ -65,11 +69,11 @@ public class OsmXmlParser {
     public void processXml(){ 
         // Map each way to its referenced nodes
         osmWayNodeMap = new HashMap<String, OsmWay>();         
+        // OSM nodes
+        NodeList nodeList = doc.getElementsByTagName("node");
         // OSM ways (streets, roads). These are 'way' elements with a 'tag' child element with 'k' attribute set to 'highway'
         // and another 'tag' child element with 'k' attribute set to 'name' that must be non empty (name of the street)
         NodeList wayList = doc.getElementsByTagName("way");
-        // OSM nodes
-        NodeList nodeList = doc.getElementsByTagName("node");
         for (int i = 0; i < wayList.getLength(); i++) {
             Node wayNode = wayList.item(i);
             if (wayNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -119,9 +123,7 @@ public class OsmXmlParser {
                                                 osmNode.setId(nodeId);
                                                 osmNode.setLat(nodeLat);
                                                 osmNode.setLong(nodeLon);
-                                                wayObject.getNodeReferenceList().add(osmNode);
-                                                // add the node to a list to look for those that are referenced in a OSM way
-                                                //osmNodeList.add(nodeId);
+                                                wayObject.getNodeReferenceList().add(osmNode);                                                
                                             }
                                         }
                                     }
@@ -134,15 +136,15 @@ public class OsmXmlParser {
             }
         }
         
-        // Search the nodes that are referenced in a way (points of a line) and gets the geographic coordinates
+        // Print the nodes that are referenced in a way (points of a line) and gets the geographic coordinates
         for(String way:  osmWayNodeMap.keySet()) {
-            System.out.println("Way id = " + way);
+            log.debug("Way id = " + way);
             OsmWay wayObj = osmWayNodeMap.get(way);
             for(Iterator<OsmNode> nodeIter = wayObj.getNodeReferenceList().iterator(); nodeIter.hasNext();){                
                 OsmNode node = nodeIter.next();
-                System.out.println("Referenced node: " + node.getId() + " Lat. " + node.getLat() + " Lon. " + node.getLong());
+                log.debug("Referenced node: " + node.getId() + " Lat. " + node.getLat() + " Lon. " + node.getLong());
             }
-            System.out.println();
+           
         }
         
         
@@ -153,14 +155,14 @@ public class OsmXmlParser {
      */
     public void processXmlBinary(){ 
         // Map each way to its referenced nodes
-        osmWayNodeMap = new HashMap<String, OsmWay>();         
+        osmWayNodeMap = new HashMap<String, OsmWay>();  
+        // List of the Ids of all the nodes that are part of ways
+        List<String> osmWayNodeList = new ArrayList<String>(); 
         // OSM ways (streets, roads). These are 'way' elements with a 'tag' child element with 'k' attribute set to 'highway'
         // and another 'tag' child element with 'k' attribute set to 'name' that must be non empty (name of the street)
         long time = System.currentTimeMillis();
-        System.out.println("start search way and their nodes.." + time);
+        log.info("start search way and their nodes.." + time);
         NodeList wayList = doc.getElementsByTagName("way");
-        // OSM nodes
-        NodeList nodeList = doc.getElementsByTagName("node");
         for (int i = 0; i < wayList.getLength(); i++) {
             Node wayNode = wayList.item(i);
             if (wayNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -168,7 +170,7 @@ public class OsmXmlParser {
                 String wayId = wayElement.getAttribute("id");                
                 if( Long.parseLong(wayId) > 0 ) {
                     OsmWay wayObject = new OsmWay();
-                    wayObject.setWayId(wayId);
+                    wayObject.setWayId(wayId);                
                     boolean isHighway = false;
                     boolean isName = false;
                     // Check the tags sub elements to see whether it is a highway with a name
@@ -196,7 +198,9 @@ public class OsmXmlParser {
                                 Node refNode = refList.item(j);                        
                                 if (refNode.getNodeType() == Node.ELEMENT_NODE) {
                                     Element refElement = (Element) refNode;
-                                    String refId = refElement.getAttribute("ref");                                    
+                                    String refId = refElement.getAttribute("ref");    
+                                    // add the node to the list of the ways' nodes
+                                    osmWayNodeList.add(refId);
                                     // add the node to a list to look for those that are referenced in a OSM way
                                     OsmNode osmNode = new OsmNode();
                                     osmNode.setId(refId);
@@ -210,55 +214,69 @@ public class OsmXmlParser {
             }
         }
         long time2 = System.currentTimeMillis();
-        System.out.println("Search done.." + (time2 - time)/1000.0);
+        log.info("Search done.." + (time2 - time)/1000.0);
         
-        // List of all the OSM nodes
+        // Sort the list of the ids of nodes that are part of a way
+        Collections.sort(osmWayNodeList);
+        // Number of all the nodes that are part of a way
+        int osmWayNodesNumber = osmWayNodeList.size();
+        log.info("Number of referenced nodes: " + osmWayNodesNumber);
+        
+        // List of all the OSM nodes 
         List<OsmNode> osmNodeList = new ArrayList<OsmNode>();
-       
-        System.out.println("Collecting all the nodes and their geographic coordinates..");
+        
+        // OSM nodes with geographic coordinates
+        NodeList nodeList = doc.getElementsByTagName("node");
+        int osmWayNodesCounter = osmWayNodesNumber;
+        log.info("Collecting all the nodes and their geographic coordinates.."); // this is the bottleneck
         // Puts all OSM nodes in an Array List to be sorted
-        for (int k = 0; k < nodeList.getLength(); k++) {
+        for (int k = 0; k < nodeList.getLength() && osmWayNodesCounter > 0; k++) {
             Node nodeNode = nodeList.item(k);
-            if (nodeNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element nodeElement = (Element) nodeNode;
-                String nodeId = nodeElement.getAttribute("id");                
-                if( Long.parseLong(nodeId) > 0 ) {
-                    // add the node to a list to look for those that are referenced in a OSM way
-                    double lat = Double.parseDouble(nodeElement.getAttribute("lat"));
-                    double lon = Double.parseDouble(nodeElement.getAttribute("lon"));
-                    OsmNode nodeObj = new OsmNode();
-                    nodeObj.setId(nodeId);
-                    nodeObj.setLat(lat);
-                    nodeObj.setLong(lon);
-                    osmNodeList.add(nodeObj);
-                }
+            Element nodeElement = (Element) nodeNode;
+            String nodeId = nodeElement.getAttribute("id");  
+            int wayNodeIndex = Collections.binarySearch(osmWayNodeList, nodeId);
+            if( wayNodeIndex >= 0){
+                osmWayNodesCounter--;
+                osmWayNodeList.remove(wayNodeIndex);               
+                // adds the node to a list to look for those that are referenced in a OSM way
+                double lat = Double.parseDouble(nodeElement.getAttribute("lat"));
+                double lon = Double.parseDouble(nodeElement.getAttribute("lon"));
+                OsmNode nodeObj = new OsmNode();
+                nodeObj.setId(nodeId);
+                nodeObj.setLat(lat);
+                nodeObj.setLong(lon);
+                osmNodeList.add(nodeObj);
             }
         }
         
         long time3 = System.currentTimeMillis();
-        System.out.println("Collection done.." + (time3 - time2)/1000.0);
-        System.out.println("Sorting the nodes..");
+        log.info("Collection done in " + (time3 - time2)/1000.0 + " sec.");
+        log.info("Sorting the nodes..");
         // Sort the OSM nodes by their id
         Collections.sort(osmNodeList);
         
         long time4 = System.currentTimeMillis();
-        System.out.println("Sort done.." + (time4 - time3)/1000.0);
-        System.out.println("Search the nodes of each way..");
-        // Search the nodes that are referenced in a way (points of a line) and get the geographic coordinates
+        log.info("Sort done in " + (time4 - time3)/1000.0 + " sec.");
+        log.info("Search the nodes of each way..");
+        
+        // Search the nodes that are referenced in a way (points of a line) and gets the geographic coordinates
         for(String way:  osmWayNodeMap.keySet()) {
-            System.out.println("Way id = " + way);
+            if(log.isDebugEnabled())
+                log.debug("Way id = " + way);
             OsmWay wayObj = osmWayNodeMap.get(way);
             for(Iterator<OsmNode> nodeIter = wayObj.getNodeReferenceList().iterator(); nodeIter.hasNext();){
                 OsmNode wayNode = nodeIter.next();
                 int nodeIndex = Collections.binarySearch(osmNodeList, wayNode);
                 OsmNode node = osmNodeList.get(nodeIndex);
-                System.out.println("Referenced node: " + node.getId() + " Lat. " + node.getLat() + " Lon. " + node.getLong());
+                if(log.isDebugEnabled())
+                    log.debug("Referenced node: " + node.getId() + " Lat. " + node.getLat() + " Lon. " + node.getLong());
             }
-            System.out.println();
+            
         }
         
         long time5 = System.currentTimeMillis();
-        System.out.println("Search done.. " + (time5 - time4)/1000.0);
+        
+        log.info("Search done in " + (time5 - time4)/1000.0 + " sec.");
         
         
     }
