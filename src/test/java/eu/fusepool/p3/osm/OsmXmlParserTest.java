@@ -1,8 +1,12 @@
 package eu.fusepool.p3.osm;
 
 import static org.junit.Assert.*;
+
+import java.util.Iterator;
+
 import junit.framework.Assert;
 
+import org.apache.clerezza.rdf.core.Triple;
 import org.apache.clerezza.rdf.core.TripleCollection;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +20,7 @@ public class OsmXmlParserTest {
 
     @Before
     public void setUp() throws Exception {
-        parser = new OsmXmlParser(testFile1); 
+        parser = new OsmXmlParser(testFile3); 
     }
 
     /*
@@ -33,6 +37,7 @@ public class OsmXmlParserTest {
                 
     }
     */
+    
     
     @Test
     public void testProcessXmlBinary() {
@@ -53,5 +58,26 @@ public class OsmXmlParserTest {
         double meanTime = totalTime / numberOfRuns;
         System.out.println("Mean execution time: " + meanTime);
     }
+    
+    
+    @Test
+    public void testTransform() {
+        long startTime = System.currentTimeMillis();
+        System.out.println("transform() Start time: " + startTime);
+        TripleCollection graph = parser.transform();
+        Iterator<Triple> igraph = graph.iterator();
+        while(igraph.hasNext()){
+            Triple t = igraph.next();
+            System.out.println(t.getSubject() + " " + t.getPredicate() + " " + t.getObject());
+        }
+        
+        long stopTime = System.currentTimeMillis();
+        System.out.println("transform()  Stop time: " + stopTime);
+        double time = (stopTime - startTime) / 1000.0;
+        System.out.println("transform() Elapsed time: " + time + " sec." );
+        System.out.println();
+                
+    }
+    
 
 }

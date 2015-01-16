@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.activation.MimeType;
 import javax.activation.MimeTypeParseException;
 
+import org.apache.clerezza.rdf.core.MGraph;
 import org.apache.clerezza.rdf.core.TripleCollection;
 import org.apache.clerezza.rdf.core.impl.SimpleMGraph;
 import org.apache.clerezza.rdf.core.serializedform.Parser;
@@ -55,7 +56,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
      */
     @Override
     protected TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {
-        TripleCollection resultGraph = new SimpleMGraph();
+        TripleCollection resultGraph = new SimpleMGraph(); // graph to be sent back to the client
+        TripleCollection dataGraph = new SimpleMGraph(); // graph to store the data after the transformation
         String mediaType = entity.getType().toString();   
         Parser parser = Parser.getInstance();
         TripleCollection clientGraph = parser.parse( entity.getData(), mediaType);
@@ -63,20 +65,16 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         // add the client data to the result graph
         resultGraph.addAll(clientGraph);
         
-        // graph containing the data feched by the url if provided.
-        TripleCollection dataGraph = null;
-        
         String dataUrl = entity.getRequest().getParameter(DATA_QUERY_PARAM);
-        
-        // OSM XML parser
-        OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
         
         // Fetch the XML data from the url and transforms it in RDF.
         // The data url must be specified as a query parameter
         log.info("Data Url : " + dataUrl);
         if(dataUrl != null){
+            OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
             if( (dataGraph = osmParser.transform()) != null ){
-                resultGraph.addAll(dataGraph);    
+                store(dataGraph);
+                resultGraph.addAll(geocode(clientGraph));    
             }
             else {
                 throw new RuntimeException("Failed to transform the source data.");
@@ -87,11 +85,28 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         return resultGraph;
         
     }
+    /**
+     * Store the RDF data in a triple store
+     * @param graph
+     */
+    private void store(TripleCollection graph){
+        //to be implemented
+    }
+    
+    /**
+     * 
+     * @param graph The input graph contain a schema:streetAddress with the name of the street.
+     * @return Returns the geometry of the street that has been found with the coordinates serialized as WKT. 
+     */
+    private TripleCollection geocode(TripleCollection graph){
+        // to be implemented
+        return new SimpleMGraph();
+    }
   
     @Override
     public boolean isLongRunning() {
         // downloading the dataset can be time consuming
-        return true;
+        return false;
     }
 
 }
