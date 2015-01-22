@@ -18,6 +18,7 @@ import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.DatasetFactory;
 import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -52,13 +53,15 @@ public class JenaTextConfig {
         // Build a text dataset by code.
         // Here , in-memory base data and in-memory Lucene index
         // Base data
-        Dataset ds1 = DatasetFactory.createMem() ;
+        Dataset jenads = DatasetFactory.createMem() ;
+        Property streetAddress = jenads.getDefaultModel().createProperty("http://schema.org/streetAddress");
         // Define the index mapping
-        EntityDefinition entDef = new EntityDefinition("uri", "text", RDFS.label.asNode()) ;
+        //EntityDefinition entDef = new EntityDefinition("uri", "text", RDFS.label.asNode()) ;
+        EntityDefinition entDef = new EntityDefinition("uri", "text", streetAddress.asNode()) ;
         // Lucene, in memory.
         Directory dir = new RAMDirectory();
         // Join together into a dataset
-        Dataset ds = TextDatasetFactory.createLucene(ds1, dir, entDef) ;
+        Dataset ds = TextDatasetFactory.createLucene(jenads, dir, entDef) ;
         return ds ;
     }
     /**
