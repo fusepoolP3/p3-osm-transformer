@@ -25,6 +25,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.lib.StrUtils;
@@ -132,7 +133,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
             "PREFIX schema: <http://schema.org/>" ,
             "PREFIX text: <http://jena.apache.org/text#>" ,
             "PREFIX ogc: <http://www.opengis.net/ont/geosparql#>") ;
-        String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?wkt " ,
+        String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?geo ?wkt " ,
                                     " { ?s text:query (schema:streetAddress '" + toponym + "') ;" ,
                                     "      schema:streetAddress ?street ;" ,
                                     "      ogc:geometry ?geo ." ,
@@ -149,8 +150,14 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
                 QuerySolution sol = results.nextSolution();
                 String streetUriName = sol.getResource("s").getURI();
                 String streetName = sol.getLiteral("?street").getString();
-                UriRef street = new UriRef(streetUriName); 
-                geoCodeRdf.add(new TripleImpl(street, new UriRef("http://schema.org/streetAddress"), new PlainLiteralImpl(streetName)));
+                Resource geo = sol.getResource("?geo");
+                String geoUri = geo.getURI();
+                String wkt = sol.getLiteral("?wkt").getString();
+                UriRef streetRef = new UriRef(streetUriName);
+                UriRef geometryRef = new UriRef(geoUri);
+                geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://schema.org/streetAddress"), new PlainLiteralImpl(streetName)));
+                geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://www.opengis.net/ont/geosparql#geometry"), geometryRef));
+                geoCodeRdf.add(new TripleImpl(geometryRef, new UriRef("http://www.opengis.net/ont/geosparql#asWKT"), new PlainLiteralImpl(wkt)));
             }
         } 
         finally { 
