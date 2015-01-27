@@ -86,6 +86,7 @@ public class JenaTextConfig {
         // Define the index mapping
         EntityDefinition entDef = new EntityDefinition("uri", "text", RDFS.label.asNode()) ;
         
+        
         // Join together into a dataset
         return TextDatasetFactory.createLucene(jenaDataset, luceneIndex, entDef) ;
     }
@@ -136,6 +137,37 @@ public class JenaTextConfig {
         // Therefore we need to name the dataset we are interested in.
         Dataset ds = DatasetFactory.assemble("text-config.ttl", "http://localhost/jena_example/#text_dataset") ;
         return ds ;
+    }
+    /**
+     * Updates and re-index the data set when new graphs are imported. 
+     * @param m
+     */
+    public void updateDataset(Model m){
+      
+        Dataset osmds = null;
+        // re-create the indexed data set
+        osmDataset.begin(ReadWrite.READ);
+        try {
+            Dataset jenads = DatasetFactory.createMem() ;
+            
+            Model jenaModel = jenads.getDefaultModel();
+            Property streetAddress = jenaModel.createProperty("http://schema.org/streetAddress");
+            // Define the index mapping
+            //EntityDefinition entDef = new EntityDefinition("uri", "text", RDFS.label.asNode()) ;
+            EntityDefinition entDef = new EntityDefinition("uri", "text", streetAddress.asNode()) ;              
+            jenaModel.add(osmDataset.getDefaultModel());
+            
+            // Lucene, in memory.
+            Directory dir = new RAMDirectory();
+            // Join together into a dataset
+            osmds = TextDatasetFactory.createLucene(jenads, dir, entDef) ;     
+            
+        }
+        finally {
+            osmDataset.end();
+        }
+        
+        this.osmDataset = osmds;
     }
     
     public void loadData(Dataset dataset, String file){

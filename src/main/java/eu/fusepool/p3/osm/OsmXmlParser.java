@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,7 +21,6 @@ import org.apache.clerezza.rdf.core.impl.PlainLiteralImpl;
 import org.apache.clerezza.rdf.core.impl.SimpleMGraph;
 import org.apache.clerezza.rdf.core.impl.TripleImpl;
 import org.apache.clerezza.rdf.ontologies.RDF;
-import org.apache.clerezza.rdf.ontologies.RDFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -30,6 +28,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 /**
  * Transforms a OpenStreetMap XML file into RDF following the schema specified in http://wiki.openstreetmap.org/wiki/OSM_XML
@@ -271,6 +273,10 @@ public class OsmXmlParser {
         
     }
     
+    /**
+     * Performs the actual transformation mapping the data extracted from OSM XML data to a Clerezza graph.
+     * @return
+     */
     public TripleCollection transform(){
         TripleCollection resultGraph = new SimpleMGraph();
         processXmlBinary();
@@ -286,6 +292,25 @@ public class OsmXmlParser {
         }
         
         return resultGraph;
+    }
+    /**
+     * Performs the actual transformation mapping the data extracted from OSM XML data to a Jena model.
+     * @return
+     */
+    public Model jenaTransform() {
+        Model model = ModelFactory.createDefaultModel();
+        processXmlBinary();
+        for(String wayId:  osmWayNodeMap.keySet()) {
+            OsmWay wayObj = osmWayNodeMap.get(wayId);
+            Resource wayUri = model.createResource("http://fusepoolp3.eu/osm/way/" + wayId);
+            wayUri.addProperty(model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), model.createResource("http://schema.org/PostalAddress"));
+            wayUri.addProperty(model.createProperty("http://schema.org/streetAddress"), wayObj.getTagName());
+            Resource geometryUri = model.createResource("http://fusepoolp3.eu/osm/geometry/" + wayId);
+            geometryUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#hasGeometry"), geometryUri);
+            String linestring = getWktLineString(wayObj.getNodeReferenceList());
+            geometryUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#asWKT"), linestring);            
+        }
+        return model;
     }
     
     private String getWktLineString(List<OsmNode> nodeList){

@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.query.Dataset;
+import com.hp.hpl.jena.query.DatasetFactory;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -25,10 +26,18 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.lib.StrUtils;
+import org.apache.jena.query.text.EntityDefinition;
+import org.apache.jena.query.text.TextDatasetFactory;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
 
 import eu.fusepool.p3.transformer.HttpRequestEntity;
 import eu.fusepool.p3.transformer.RdfGeneratingTransformer;
@@ -50,8 +59,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     
     OsmRdfTransformer() throws IOException{
         jena = new JenaTextConfig();
-        String file = getClass().getResource("trento-osm-keys.ttl").getFile();
         osmDataset = jena.getDataset();
+        String file = getClass().getResource("trento-osm-keys.ttl").getFile();
         jena.loadData(osmDataset, file);
     }
     
@@ -73,15 +82,15 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     }
 
     /**
-     * Takes from the client some RDF data and a URL to fetch OSM XML data to be used to enrich it.
+     * Takes from the client some RDF data and optionally a URL to fetch OSM XML data to be used to geocode it.
      * Returns the original RDF data with the enrichments.    
      */
     @Override
     protected TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {
         TripleCollection resultGraph = new SimpleMGraph(); // graph to be sent back to the client
-        TripleCollection dataGraph = new SimpleMGraph(); // graph to store the data after the transformation
+        Model dataGraph = ModelFactory.createDefaultModel(); // graph to store the data after the transformation
         String mediaType = entity.getType().toString();   
-        Parser parser = Parser.getInstance();
+        //Parser parser = Parser.getInstance();
         //TripleCollection clientGraph = parser.parse( entity.getData(), mediaType);
         String toponym = IOUtils.toString(entity.getData());
         
@@ -95,9 +104,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         log.info("Data Url : " + dataUrl);
         if(dataUrl != null){
             OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
-            if( (dataGraph = osmParser.transform()) != null ){
-                store(dataGraph);
-                //resultGraph.addAll(geocode(clientGraph));    
+            if( (dataGraph = osmParser.jenaTransform()) != null ){
+                store(dataGraph);    
             }
             else {
                 throw new RuntimeException("Failed to transform the source data.");
@@ -112,11 +120,11 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         
     }
     /**
-     * Store the RDF data in a triple store
+     * Store and index the new RDF data in a Jena triple store.
      * @param graph
      */
-    private void store(TripleCollection graph){
-        //to be implemented
+    private void store(Model graph){
+        //jena.updateDataset(graph);
     }
     
     /**
