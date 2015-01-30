@@ -32,16 +32,11 @@ public class JenaTextConfig {
     
     File JENA_TDB_TEMP_FOLDER = null;  
     File LUCENE_INDEX_TEMP_FOLDER = null;
-    Dataset osmDataset = null;
+    
 
     static { LogCtl.setLog4j() ; }
     static Logger log = LoggerFactory.getLogger("JenaTextConfig") ;
     
-    JenaTextConfig() throws IOException{        
-        osmDataset = createMemDatasetFromCode() ;
-        //createTemporaryDatasetIndexFolders();
-        //osmDataset = createPersistentDatasetFromCode();
-    }
     
     /**
      * Creates an in-memory Jena TDB data set and Lucene index from code.
@@ -138,45 +133,21 @@ public class JenaTextConfig {
         Dataset ds = DatasetFactory.assemble("text-config.ttl", "http://localhost/jena_example/#text_dataset") ;
         return ds ;
     }
-    /**
-     * Updates and re-index the data set when new graphs are imported. 
-     * @param m
-     */
-    public void updateDataset(Model m){
-      
-        Dataset osmds = null;
-        // re-create the indexed data set
-        osmDataset.begin(ReadWrite.READ);
-        try {
-            Dataset jenads = DatasetFactory.createMem() ;
-            
-            Model jenaModel = jenads.getDefaultModel();
-            Property streetAddress = jenaModel.createProperty("http://schema.org/streetAddress");
-            // Define the index mapping
-            //EntityDefinition entDef = new EntityDefinition("uri", "text", RDFS.label.asNode()) ;
-            EntityDefinition entDef = new EntityDefinition("uri", "text", streetAddress.asNode()) ;              
-            jenaModel.add(osmDataset.getDefaultModel());
-            
-            // Lucene, in memory.
-            Directory dir = new RAMDirectory();
-            // Join together into a dataset
-            osmds = TextDatasetFactory.createLucene(jenads, dir, entDef) ;     
-            
-        }
-        finally {
-            osmDataset.end();
-        }
-        
-        this.osmDataset = osmds;
-    }
     
+    /**
+     * Import the data into the data set. When a new data set is imported the old data is deleted. 
+     * @param dataset
+     * @param file
+     */
     public void loadData(Dataset dataset, String file){
         log.info("Start loading") ;
         long startTime = System.nanoTime() ;
         dataset.begin(ReadWrite.WRITE) ;
         try {
             Model m = dataset.getDefaultModel() ;
+            log.info("Number of triples before loading: " + m.size());
             RDFDataMgr.read(m, file) ;
+            log.info("Number of triples after loading: " + m.size());
             dataset.commit() ;
         } 
         finally { 
@@ -187,8 +158,5 @@ public class JenaTextConfig {
         log.info(String.format("Finish loading - %.2fms", time)) ;
     }
     
-    public Dataset getDataset() {
-        return osmDataset;
-    }
     
 }

@@ -310,6 +310,7 @@ public class OsmXmlParser {
             String linestring = getWktLineString(wayObj.getNodeReferenceList());
             geometryUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#asWKT"), linestring);            
         }
+        log.info("Number of triples transformed: " + model.size());
         return model;
     }
     

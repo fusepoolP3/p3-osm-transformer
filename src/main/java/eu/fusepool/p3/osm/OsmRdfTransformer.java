@@ -1,6 +1,10 @@
 package eu.fusepool.p3.osm;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +39,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.lib.StrUtils;
 import org.apache.jena.query.text.EntityDefinition;
 import org.apache.jena.query.text.TextDatasetFactory;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
@@ -59,7 +64,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     
     OsmRdfTransformer() throws IOException{
         jena = new JenaTextConfig();
-        osmDataset = jena.getDataset();
+        osmDataset = jena.createMemDatasetFromCode();
         String file = getClass().getResource("trento-osm-keys.ttl").getFile();
         jena.loadData(osmDataset, file);
     }
@@ -101,30 +106,44 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         
         // Fetch the XML data from the url and transforms it in RDF.
         // The data url must be specified as a query parameter
+        Dataset dataset = null;
         log.info("Data Url : " + dataUrl);
         if(dataUrl != null){
             OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
             if( (dataGraph = osmParser.jenaTransform()) != null ){
-                store(dataGraph);    
+                dataset =store(dataGraph);    
             }
             else {
                 throw new RuntimeException("Failed to transform the source data.");
             }
             
         }
+        else {
+            dataset = osmDataset;
+        }
         
         // Geocoding: search for the street with the name sent by the client and return the geographic coordinates
-        resultGraph = geocode(toponym);
+        if(toponym != null && !"".equals(toponym))
+            resultGraph = geocode(dataset, toponym);
         
         return resultGraph;
         
     }
     /**
      * Store and index the new RDF data in a Jena triple store.
+     * Returns the updated dataset.
      * @param graph
+     * @throws IOException 
      */
-    private void store(Model graph){
-        //jena.updateDataset(graph);
+    private Dataset store(Model graph) throws IOException{
+        Dataset dataset = jena.createMemDatasetFromCode();
+        File rdfFile = File.createTempFile("jenatdb-", ".ttl");
+        OutputStream os = new FileOutputStream(rdfFile);
+        RDFDataMgr.write(os, graph, Lang.TURTLE);
+        String defaultFile = getClass().getResource("trento-osm-keys.ttl").getFile();
+        jena.loadData(dataset, defaultFile);
+        jena.loadData(dataset, rdfFile.getAbsolutePath());
+        return dataset;
     }
     
     /**
@@ -132,7 +151,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
      * @param graph The input graph contain a schema:streetAddress with the name of the street.
      * @return Returns the geometry of the street that has been found with the coordinates serialized as WKT. 
      */
-    private TripleCollection geocode(String toponym){
+    private TripleCollection geocode(Dataset ds, String toponym){
         TripleCollection geoCodeRdf = new SimpleMGraph();
         
         String pre = StrUtils.strjoinNL( 
@@ -148,12 +167,13 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
                                     "   ?geo ogc:asWKT ?wkt ." ,
                                     " }") ;
         
-        osmDataset.begin(ReadWrite.READ) ;
+        ds.begin(ReadWrite.READ) ;
         try {
             Query q = QueryFactory.create(pre + "\n" + qs) ;
-            QueryExecution qexec = QueryExecutionFactory.create(q , osmDataset) ;
+            QueryExecution qexec = QueryExecutionFactory.create(q , ds) ;
             //QueryExecUtils.executeQuery(q, qexec) ;
-            ResultSet results = qexec.execSelect();            
+            ResultSet results = qexec.execSelect();   
+            int numberOfToponyms = 0;
             for( ; results.hasNext(); ){
                 QuerySolution sol = results.nextSolution();
                 String streetUriName = sol.getResource("s").getURI();
@@ -166,10 +186,12 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
                 geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://schema.org/streetAddress"), new PlainLiteralImpl(streetName)));
                 geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://www.opengis.net/ont/geosparql#geometry"), geometryRef));
                 geoCodeRdf.add(new TripleImpl(geometryRef, new UriRef("http://www.opengis.net/ont/geosparql#asWKT"), new PlainLiteralImpl(wkt)));
+                numberOfToponyms++;
             }
+            log.info("Number of toponymis like " + toponym + " found: " + numberOfToponyms);
         } 
         finally { 
-            osmDataset.end() ; 
+            ds.end() ; 
         }
         
         return geoCodeRdf;
