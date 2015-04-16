@@ -1,4 +1,4 @@
-Fusepool P3 Geocoding Service
+Geocoding Service
 =============================
 
 The component is implemented as a transformer for Open Street Map XML data. It takes as input RDF data with schema:streetAddress property and 
@@ -7,6 +7,7 @@ triple store as a named graph. The triple store is indexed whenever a new graph 
 search. The addresses sent by the client are searched in the triple store in order to retrieve the geographic coordinates. The original RDF 
 data and the coordinates are sent back to the client. 
 
+## Compiling and Running
 Compile the project running the command
 
     mvn install
