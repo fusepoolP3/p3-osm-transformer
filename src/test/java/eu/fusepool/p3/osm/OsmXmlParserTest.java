@@ -2,48 +2,68 @@ package eu.fusepool.p3.osm;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.URLEncoder;
 import java.util.Iterator;
-
-import junit.framework.Assert;
 
 import org.apache.clerezza.rdf.core.Triple;
 import org.apache.clerezza.rdf.core.TripleCollection;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
+import com.jayway.restassured.RestAssured;
 
 public class OsmXmlParserTest {
     
-    OsmXmlParser parser;
-    String testFile1 = "file:///home/luigi/projects/xslt/giglio_island.osm";
-    String testFile2 = "file:///home/luigi/projects/xslt/trento_italy.osm";
-    String testFile3 = "file:///home/luigi/projects/xslt/osm-xml-example.osm";
+    OsmXmlParser parser;    
+    String MOCK_OSM_SERVER_DATA = "osm-xml-example.osm";
+    private static int mockPort = 0;
+    private String mockOsmServerData;
+    private String mockOsmDataProviderBaseUri;
+    
+    @BeforeClass
+	public static void setMockPort() {
+		mockPort = findFreePort();
+		
+	}
 
     @Before
     public void setUp() throws Exception {
-        parser = new OsmXmlParser(testFile3); 
+    	// load the data for the mock server    	
+    	mockOsmServerData = IOUtils.toString( getClass().getResourceAsStream(MOCK_OSM_SERVER_DATA) ).replace("\\r|\\n", "");
+    	mockOsmDataProviderBaseUri = "http://localhost:" + mockPort;
+    	RestAssured.baseURI = mockOsmDataProviderBaseUri;
+    	// Set up a service in the mock server to respond to a get request that must be sent by the parser
+        // to fetch the data.
+    	stubFor(get(urlEqualTo("/data/" + MOCK_OSM_SERVER_DATA))
+    	                .willReturn(aResponse()
+    	                .withStatus(HttpStatus.SC_OK)
+    	                .withHeader("Content-Type", "text/xml")
+    	                .withBody(mockOsmServerData)));    	    	       
     }
-
-    /*
-    @Test
-    public void testProcessXml() {
-        long startTime = System.currentTimeMillis();
-        System.out.println("processXml() Start time: " + startTime);
-        parser.processXml();
-        long stopTime = System.currentTimeMillis();
-        System.out.println("processXml()  Stop time: " + stopTime);
-        double time = (stopTime - startTime) / 1000.0;
-        System.out.println("processXml() Elapsed time: " + time + " sec." );
-        System.out.println();
-                
-    }
-    */
+    
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(mockPort);
     
     
     @Test
-    public void testProcessXmlBinary() {
+    public void testProcessXmlBinary() throws IOException {
         final int numberOfRuns = 10;
         double totalTime = 0.0;
-        double time = 0.0;
+        double time = 0.0;                
+        
+        String osmDataUrl = RestAssured.baseURI + "/data/" + MOCK_OSM_SERVER_DATA ;        
+        parser = new OsmXmlParser(osmDataUrl);
+        
         for(int i = 0; i < 10; i++){
             long startTime = System.currentTimeMillis();
             System.out.println("processXmlBinary() Start time: " + startTime);
@@ -61,7 +81,9 @@ public class OsmXmlParserTest {
     
     
     @Test
-    public void testTransform() {
+    public void testTransform() throws IOException {
+    	String osmDataUrl = RestAssured.baseURI + "/data/" + MOCK_OSM_SERVER_DATA ;        
+        parser = new OsmXmlParser(osmDataUrl);
         long startTime = System.currentTimeMillis();
         System.out.println("transform() Start time: " + startTime);
         TripleCollection graph = parser.transform();
@@ -77,6 +99,16 @@ public class OsmXmlParserTest {
         System.out.println("transform() Elapsed time: " + time + " sec." );
         System.out.println();
                 
+    }
+    
+    public static int findFreePort() {
+        int port = 0;
+        try (ServerSocket server = new ServerSocket(0);) {
+            port = server.getLocalPort();
+        } catch (Exception e) {
+            throw new RuntimeException("unable to find a free port");
+        }
+        return port;
     }
     
 

@@ -63,6 +63,7 @@ public class OsmXmlParser {
     private InputStream getOsmStream(String osmFileUrl) throws IOException{
         URL configUrl = new URL(osmFileUrl);
         URLConnection connection = configUrl.openConnection();
+        
         return connection.getInputStream();
     }
     /*
