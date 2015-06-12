@@ -65,8 +65,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     OsmRdfTransformer() throws IOException{
         jena = new JenaTextConfig();
         osmDataset = jena.createMemDatasetFromCode();
-        String file = getClass().getResource("trento-osm-keys.ttl").getFile();
-        jena.loadData(osmDataset, file);
+        //String file = getClass().getResource("osm-giglio-ways.ttl").getFile();
+        //jena.loadData(osmDataset, file);
     }
     
      /**
