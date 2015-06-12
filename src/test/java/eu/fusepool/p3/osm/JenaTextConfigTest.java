@@ -38,24 +38,24 @@ public class JenaTextConfigTest {
     }
     @Test
     public void testLoadData() {
-        String file = getClass().getResource("trento-osm-keys.ttl").getFile();
+        String file = getClass().getResource("osm-giglio-ways.ttl").getFile();
         Dataset dataset = jena.createMemDatasetFromCode();
         jena.loadData(dataset, file);
         int addressNum =  queryData(dataset, "roma");
-        Assert.assertTrue(addressNum == 14);
+        Assert.assertTrue(addressNum == 1);
     }
     
     @Test
     public void testUpdateData() {
-        String file1 = getClass().getResource("trento-osm-keys.ttl").getFile();
-        String file2 = getClass().getResource("giglio.ttl").getFile();
+        String file1 = getClass().getResource("osm-giglio-ways.ttl").getFile();
+        String file2 = getClass().getResource("foo.ttl").getFile();
         Dataset dataset = jena.createMemDatasetFromCode();
         jena.loadData(dataset, file1);
+        int addressNumTrento =  queryData(dataset, "trento");
+        Assert.assertTrue(addressNumTrento == 1);
         jena.loadData(dataset, file2);
-        int addressNumCampese =  queryData(dataset, "campese");
-        int addressNumRoma =  queryData(dataset, "roma");
-        int addressNum = addressNumCampese + addressNumRoma;
-        Assert.assertTrue(addressNumRoma == 14);
+        addressNumTrento =  queryData(dataset, "trento");
+        Assert.assertTrue(addressNumTrento == 2);
     }
     
     private int queryData(Dataset dataset, String toponym){
@@ -70,7 +70,7 @@ public class JenaTextConfigTest {
             "PREFIX schema: <http://schema.org/>" ,
             "PREFIX text: <http://jena.apache.org/text#>" ,
             "PREFIX ogc: <http://www.opengis.net/ont/geosparql#>") ;
-        String qs = StrUtils.strjoinNL( "SELECT ?s ?address ?wkt " ,
+        String qs = StrUtils.strjoinNL( "SELECT DISTINCT ?s ?address ?wkt " ,
                                     " { ?s text:query (schema:streetAddress '" + toponym + "') ;" ,
                                     "      schema:streetAddress ?address ;" ,
                                     "      ogc:geometry ?geo ." ,
@@ -86,7 +86,8 @@ public class JenaTextConfigTest {
             for( ; results.hasNext(); ){
                 addressCounter++;
                 QuerySolution sol = results.nextSolution();
-                sol.get("s");
+                System.out.println( sol.get("s") );
+                
             }
         } 
         finally { 

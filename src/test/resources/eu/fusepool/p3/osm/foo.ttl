@@ -1,6 +1,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
+@prefix ogc: <http://www.opengis.net/ont/geosparql#> .
 
 <http://example.org/res1> rdfs:label "Monte Bondone Hotel" ;
-                          schema:streetAddress "Via Trento 1" .
+                          schema:streetAddress "Via Trento 1" ;
+                          ogc:geometry <urn:osm:way:geometry:uuid:123456> .
+<urn:osm:way:geometry:uuid:123456> ogc:asWKT "LineString((10.9190917 42.3598746,10.9189831 42.3597034))" .

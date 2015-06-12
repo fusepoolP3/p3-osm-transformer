@@ -1,0 +1,737 @@
+# XSLT transformation of OSM XML data for ways and nodes.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ogc: <http://www.opengis.net/ont/geosparql#> .
+
+    
+              <urn:osm:way:uuid:24923384> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Thaon de Revel" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923384> .
+                
+              <urn:osm:way:geometry:uuid:24923384> ogc:asWKT "LineString((10.9199584 42.3595729,10.9198807 42.3596822,10.919738 42.359859,10.9196308 42.359977,10.9195376 42.3600963,10.919343 42.360366,10.9192919 42.3605014,10.919199 42.360748,10.919178 42.360939,10.919207 42.361064,10.919302 42.361221))" .
+        
+              <urn:osm:way:uuid:24923390> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via cardinale Luigi Oreglia" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923390> .
+                
+              <urn:osm:way:geometry:uuid:24923390> ogc:asWKT "LineString((10.9208961 42.3594379,10.920847 42.359336,10.920811 42.359237,10.9207738 42.3591024,10.9208321 42.3590426))" .
+        
+              <urn:osm:way:uuid:24923428> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Cannelle" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923428> .
+                
+              <urn:osm:way:geometry:uuid:24923428> ogc:asWKT "LineString((10.9224182 42.3570967,10.9224325 42.3570675,10.9225462 42.3570025,10.9227688 42.3568439,10.922851 42.3567575,10.9228911 42.3566946,10.9229588 42.3566533,10.9230541 42.3566567,10.9231384 42.3566554,10.9231872 42.3566445,10.9233858 42.3564765,10.9234542 42.3563581,10.9234608 42.3562899,10.9234249 42.3562336,10.923281 42.356121,10.923193 42.355983,10.9231693 42.3559255,10.9231634 42.3558531,10.9231443 42.3557874,10.9231021 42.3557214,10.9229854 42.3555971,10.9229117 42.3555372,10.9228241 42.3554919,10.922596 42.35543,10.9224203 42.3553833,10.9223126 42.3553805,10.9222045 42.3554052,10.922105 42.3554337,10.921855 42.35548,10.9215718 42.3555129,10.9213932 42.3555146,10.9213028 42.3555012,10.9212256 42.3554527,10.9210561 42.3553003,10.921033 42.3552469,10.9210278 42.3551907,10.9210287 42.3550437,10.921038 42.354797,10.9210525 42.3546386,10.921053 42.35448,10.9210247 42.3542373,10.9210042 42.3541801,10.9209562 42.3541388,10.9208071 42.3539604,10.920755 42.3538752,10.920708 42.353763,10.920621 42.353599,10.9205621 42.3534985,10.9205535 42.3534214,10.920527 42.353355,10.9205101 42.3533027,10.9205058 42.3532398,10.9205475 42.3530387,10.9205475 42.3529845,10.920531 42.3529329,10.920434 42.352844,10.9202488 42.3527071,10.920139 42.3526446,10.9199468 42.3525635,10.919858 42.352497,10.919802 42.352424,10.9197877 42.3523573,10.9197897 42.3522713,10.9198128 42.3521935,10.9198212 42.3521097,10.9197518 42.3516554,10.9197156 42.3515337,10.9195467 42.3512261,10.9193752 42.3510064,10.9193314 42.350954,10.919298 42.3508712,10.919281 42.350711,10.919307 42.350582,10.919343 42.350524,10.919389 42.350467,10.919447 42.350421,10.919508 42.350376,10.919611 42.350318,10.919734 42.350265,10.919841 42.350215,10.919925 42.350147,10.9199476 42.3501252,10.919984 42.35009,10.920089 42.350048,10.920171 42.35007,10.920277 42.35012,10.920393 42.350235,10.920516 42.350299,10.920623 42.350303,10.920764 42.350315,10.920876 42.350368,10.920958 42.35049,10.920908 42.350517,10.920811 42.350536,10.920681 42.3507))" .
+        
+              <urn:osm:way:uuid:24923441> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Santa Maria" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923441> .
+                
+              <urn:osm:way:geometry:uuid:24923441> ogc:asWKT "LineString((10.9018872 42.3653721,10.901897 42.3652807,10.9018886 42.3651061,10.9018757 42.3648399,10.901849 42.3646128,10.9017333 42.3643752,10.9015496 42.364126,10.9013894 42.3638623,10.9011594 42.3634872,10.9009881 42.3632597,10.9008742 42.3631209,10.900795 42.363029,10.900755 42.362937,10.900738 42.362808))" .
+        
+              <urn:osm:way:uuid:24923445> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via di Mezzo Franco" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923445> .
+                
+              <urn:osm:way:geometry:uuid:24923445> ogc:asWKT "LineString((10.879766 42.3641588,10.879591 42.364238,10.8795415 42.3642663,10.8795073 42.3642879,10.879369 42.3644004,10.8787164 42.3649622))" .
+        
+              <urn:osm:way:uuid:24923473> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via di Mezzo Franco" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923473> .
+                
+              <urn:osm:way:geometry:uuid:24923473> ogc:asWKT "LineString((10.8787164 42.3649622,10.8786522 42.364964,10.8786188 42.3649864,10.8785707 42.3650939,10.8784962 42.3651492,10.8784571 42.3651575,10.8780875 42.3651922,10.8779173 42.3651631,10.8777181 42.3651027,10.8776158 42.3650779))" .
+        
+              <urn:osm:way:uuid:24923486> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Umberto I" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923486> .
+                
+              <urn:osm:way:geometry:uuid:24923486> ogc:asWKT "LineString((10.9219845 42.3595054,10.921824 42.3594435,10.9216832 42.359404,10.9214973 42.3593308,10.9213427 42.3592933,10.921093 42.359291,10.920952 42.359321,10.920847 42.359336,10.920702 42.35939,10.920586 42.359424,10.9202557 42.3594745,10.9200543 42.35952,10.9199584 42.3595729))" .
+        
+              <urn:osm:way:uuid:24923513> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923513> .
+                
+              <urn:osm:way:geometry:uuid:24923513> ogc:asWKT "LineString((10.8969428 42.371998,10.8967772 42.3719895,10.8966416 42.372015,10.8965152 42.3720622))" .
+        
+              <urn:osm:way:uuid:24923526> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dell'Allume" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923526> .
+                
+              <urn:osm:way:geometry:uuid:24923526> ogc:asWKT "LineString((10.881309 42.365787,10.881343 42.365676,10.881341 42.365592,10.881242 42.365493,10.8805022 42.3649354,10.8804185 42.3648843,10.8801007 42.3647297,10.8800027 42.3646291,10.879931 42.3644336,10.8798383 42.3642766,10.879766 42.3641588))" .
+        
+              <urn:osm:way:uuid:24923562> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Torre" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923562> .
+                
+              <urn:osm:way:geometry:uuid:24923562> ogc:asWKT "LineString((10.882905 42.367103,10.882802 42.367103,10.88258 42.367172,10.882411 42.367279,10.882294 42.36737,10.882233 42.367504,10.882205 42.367649,10.882205 42.367858,10.882144 42.368072,10.882061 42.368232,10.882005 42.368381,10.8817936 42.3685584,10.8817246 42.3687644,10.8817374 42.3688554,10.8817886 42.3689394,10.8817602 42.3690423))" .
+        
+              <urn:osm:way:uuid:24923570> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Circonvallazione" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:24923570> .
+                
+              <urn:osm:way:geometry:uuid:24923570> ogc:asWKT "LineString((10.9014468 42.3656912,10.901414 42.365768,10.9013925 42.3658722,10.9014559 42.3659382,10.901474 42.366039,10.9014006 42.3661395,10.9013702 42.3661789,10.901324 42.36626,10.9012868 42.3664186,10.9012438 42.3665563,10.9011979 42.3666347,10.9011225 42.3667106,10.9010316 42.3668085,10.9009636 42.3668806,10.9009022 42.3669397,10.9007768 42.3670445,10.9006561 42.3671319,10.9005785 42.3672141,10.9005017 42.3673024,10.9004368 42.3673504,10.9003521 42.3673863,10.9002932 42.3673806,10.9002209 42.3673485,10.900118 42.367282,10.900013 42.36724,10.8999415 42.367205,10.899853 42.367156,10.899671 42.367092,10.899498 42.367042,10.899337 42.367008,10.8992313 42.3669867,10.899026 42.366882,10.898942 42.366783,10.898884 42.366622,10.898839 42.366458,10.898822 42.366321,10.89888 42.366214,10.8989651 42.3661388,10.898983 42.366123,10.899107 42.366046,10.8992659 42.3659785,10.8994341 42.3659192,10.8995378 42.3658781,10.8997063 42.3658031,10.8998832 42.3657524,10.9000006 42.3657016,10.9001516 42.3656053,10.9002532 42.3655489,10.900366 42.3654682,10.9005465 42.36536))" .
+        
+              <urn:osm:way:uuid:26482804> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Trieste" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:26482804> .
+                
+              <urn:osm:way:geometry:uuid:26482804> ogc:asWKT "LineString((10.9213427 42.3592933,10.921366 42.359172,10.921422 42.359035,10.921463 42.358913,10.921463 42.358844,10.9214451 42.3588031))" .
+        
+              <urn:osm:way:uuid:34226210> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dell'allume" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:34226210> .
+                
+              <urn:osm:way:geometry:uuid:34226210> ogc:asWKT "LineString((10.879766 42.3641588,10.8798464 42.3640771,10.8799101 42.3640099,10.8800824 42.3638574,10.8801408 42.3637822,10.8801743 42.3636566,10.8802053 42.3634015,10.8801896 42.3632668,10.8801523 42.363118,10.8801504 42.3630592))" .
+        
+              <urn:osm:way:uuid:61132573> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dietro la Chiesa" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132573> .
+                
+              <urn:osm:way:geometry:uuid:61132573> ogc:asWKT "LineString((10.8990842 42.3666862,10.8990601 42.3665946,10.8990505 42.366535,10.8990613 42.3665101,10.8990216 42.3663812,10.8990132 42.3663163,10.8990397 42.366279,10.8993754 42.3660869,10.8995006 42.3659882,10.8995379 42.3659731))" .
+        
+              <urn:osm:way:uuid:61132579> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Porte" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132579> .
+                
+              <urn:osm:way:geometry:uuid:61132579> ogc:asWKT "LineString((10.9021747 42.3627228,10.9021739 42.3628269,10.9022176 42.3630059,10.9022486 42.363121,10.9022963 42.3632336,10.9022847 42.3634019,10.9022991 42.3635531,10.9022967 42.3636923,10.9022429 42.3638452,10.9021828 42.3640275))" .
+        
+              <urn:osm:way:uuid:61132580> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Savonarola" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132580> .
+                
+              <urn:osm:way:geometry:uuid:61132580> ogc:asWKT "LineString((10.9006752 42.3661189,10.9007835 42.3661527,10.9008401 42.3662025,10.900893 42.3661731,10.9009207 42.3661972,10.9009665 42.3662416,10.9009869 42.3662781,10.9009364 42.3663181,10.9009245 42.3663799,10.9008353 42.3663163,10.9006439 42.3664132,10.9004923 42.3665039))" .
+        
+              <urn:osm:way:uuid:61132582> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Trento" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132582> .
+                
+              <urn:osm:way:geometry:uuid:61132582> ogc:asWKT "LineString((10.9190917 42.3598746,10.9189831 42.3597034,10.9188791 42.3596448,10.9187486 42.3595527,10.9186877 42.3594989))" .
+        
+              <urn:osm:way:uuid:61132584> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Rocca" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132584> .
+                
+              <urn:osm:way:geometry:uuid:61132584> ogc:asWKT "LineString((10.9001276 42.366527,10.9003093 42.3666658))" .
+        
+              <urn:osm:way:uuid:61132587> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Marco Polo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132587> .
+                
+              <urn:osm:way:geometry:uuid:61132587> ogc:asWKT "LineString((10.9005416 42.3662176,10.9004622 42.3660922,10.9004441 42.3660353,10.9003804 42.3659455,10.9003683 42.3659117))" .
+        
+              <urn:osm:way:uuid:61132588> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Dante" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132588> .
+                
+              <urn:osm:way:geometry:uuid:61132588> ogc:asWKT "LineString((10.8990613 42.3665101,10.8991203 42.3664968,10.8992491 42.3664764,10.8993345 42.366447,10.8994531 42.3663304,10.8996089 42.3664283))" .
+        
+              <urn:osm:way:uuid:61132590> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Cisterna" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132590> .
+                
+              <urn:osm:way:geometry:uuid:61132590> ogc:asWKT "LineString((10.9004249 42.3655436,10.9004754 42.3656183,10.900532 42.3657686,10.9005091 42.3657819,10.900532 42.3658308))" .
+        
+              <urn:osm:way:uuid:61132591> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Chiesa" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132591> .
+                
+              <urn:osm:way:geometry:uuid:61132591> ogc:asWKT "LineString((10.8996261 42.3662167,10.8996498 42.3662372,10.8997666 42.3663083))" .
+        
+              <urn:osm:way:uuid:61132593> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Sant'Anna" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132593> .
+                
+              <urn:osm:way:geometry:uuid:61132593> ogc:asWKT "LineString((10.9009977 42.3655222,10.9010242 42.3655133,10.9010844 42.3655133,10.9011506 42.3656183,10.9011361 42.3656681))" .
+        
+              <urn:osm:way:uuid:61132594> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Bottai" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132594> .
+                
+              <urn:osm:way:geometry:uuid:61132594> ogc:asWKT "LineString((10.9020245 42.3658796,10.9019435 42.365868,10.9018285 42.3658285,10.9016524 42.3658001))" .
+        
+              <urn:osm:way:uuid:61132595> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dei Lombi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132595> .
+                
+              <urn:osm:way:geometry:uuid:61132595> ogc:asWKT "LineString((10.9002492 42.3670766,10.9003238 42.3669876,10.9003057 42.3669743,10.9003671 42.3669058,10.9005356 42.366784,10.9004165 42.3666835))" .
+        
+              <urn:osm:way:uuid:61132596> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via del Corvo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132596> .
+                
+              <urn:osm:way:geometry:uuid:61132596> ogc:asWKT "LineString((10.900738 42.362808,10.900774 42.362678,10.900857 42.362449,10.901029 42.361854,10.90113 42.361515,10.901248 42.361232,10.901273 42.361167,10.90133 42.361076))" .
+        
+              <urn:osm:way:uuid:61132598> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Bianchi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132598> .
+                
+              <urn:osm:way:geometry:uuid:61132598> ogc:asWKT "LineString((10.9003358 42.3663652,10.9003406 42.3663359,10.9002058 42.3662381,10.9001529 42.3662176,10.9000241 42.3661127))" .
+        
+              <urn:osm:way:uuid:61132601> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Garibaldi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132601> .
+                
+              <urn:osm:way:geometry:uuid:61132601> ogc:asWKT "LineString((10.9009243 42.3658495,10.9007679 42.3657694,10.900727 42.3657712,10.9006271 42.3657908,10.900532 42.3658308,10.9004249 42.3658726,10.9003683 42.3659117,10.9003491 42.3659295,10.9001685 42.3660131,10.9000241 42.3661127,10.8998845 42.3662087,10.8997666 42.3663083,10.8996823 42.3663732,10.8996089 42.3664283))" .
+        
+              <urn:osm:way:uuid:61132602> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Tiziano" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132602> .
+                
+              <urn:osm:way:geometry:uuid:61132602> ogc:asWKT "LineString((10.9004772 42.3662641,10.90052 42.3662976,10.9006223 42.3663954,10.9006439 42.3664132))" .
+        
+              <urn:osm:way:uuid:61132603> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Giuliano" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132603> .
+                
+              <urn:osm:way:geometry:uuid:61132603> ogc:asWKT "LineString((10.9219845 42.3595054,10.9221394 42.3595364,10.9222458 42.3595352,10.9223929 42.3595,10.922417 42.3594142,10.9225043 42.3594237,10.922501 42.3593518,10.9225138 42.3592646,10.9225545 42.3592011,10.9226385 42.3591414,10.9227305 42.359127,10.9228817 42.359134,10.9230424 42.3591962,10.923166 42.3590868,10.9231703 42.3590035,10.9231785 42.3588857,10.9231879 42.3587423,10.9232776 42.3586388,10.9232546 42.3585625,10.9231678 42.3585011,10.9231298 42.3584312,10.9231355 42.3583441,10.9231514 42.3582379,10.9231493 42.3581636,10.9231453 42.3581015,10.9230942 42.3580479,10.9230479 42.3579775,10.9230212 42.3577889,10.9229896 42.3576898,10.922944 42.3576792,10.9225846 42.3575188,10.9222467 42.3574189,10.9221586 42.357343,10.9220645 42.357306,10.9218648 42.3572974,10.9217531 42.3573473))" .
+        
+              <urn:osm:way:uuid:61132604> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Cadorna" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132604> .
+                
+              <urn:osm:way:geometry:uuid:61132604> ogc:asWKT "LineString((10.9195554 42.3596772,10.9194238 42.3595487,10.9192292 42.3594836))" .
+        
+              <urn:osm:way:uuid:61132605> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Fieramosca" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132605> .
+                
+              <urn:osm:way:geometry:uuid:61132605> ogc:asWKT "LineString((10.9000115 42.3667016,10.9000783 42.3667449,10.9001084 42.3667876,10.9002576 42.3669005))" .
+        
+              <urn:osm:way:uuid:61132606> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Manzoni" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132606> .
+                
+              <urn:osm:way:geometry:uuid:61132606> ogc:asWKT "LineString((10.8999375 42.3658032,10.9000626 42.3659322,10.9001505 42.3660104,10.9001685 42.3660131))" .
+        
+              <urn:osm:way:uuid:61132608> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Mazzini" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132608> .
+                
+              <urn:osm:way:geometry:uuid:61132608> ogc:asWKT "LineString((10.918973 42.3608727,10.9190685 42.3605497,10.9190942 42.3604547))" .
+        
+              <urn:osm:way:uuid:61132610> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Volta" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132610> .
+                
+              <urn:osm:way:geometry:uuid:61132610> ogc:asWKT "LineString((10.8999146 42.3665875,10.899828 42.3667485,10.8998653 42.3668036,10.89971 42.3668721,10.8995704 42.3669467,10.8995391 42.3669565,10.8993827 42.3669005,10.8993402 42.3668736))" .
+        
+              <urn:osm:way:uuid:61132613> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Canova" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132613> .
+                
+              <urn:osm:way:geometry:uuid:61132613> ogc:asWKT "LineString((10.9007907 42.3659642,10.9009867 42.3660855,10.9010348 42.3660603,10.9011239 42.3661191,10.9011145 42.3660518,10.9011361 42.3659526,10.9010423 42.3659251,10.9010349 42.3658352))" .
+        
+              <urn:osm:way:uuid:61132616> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via degli Etruschi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132616> .
+                
+              <urn:osm:way:geometry:uuid:61132616> ogc:asWKT "LineString((10.9000434 42.3666195,10.9000422 42.366664,10.9000115 42.3667016,10.8999471 42.3667805,10.899911 42.3667965,10.8998653 42.3668036,10.8999026 42.3668214,10.89997 42.3668294,10.9000193 42.3668472,10.9001685 42.3669814))" .
+        
+              <urn:osm:way:uuid:61132618> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Mura" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132618> .
+                
+              <urn:osm:way:geometry:uuid:61132618> ogc:asWKT "LineString((10.8995379 42.3659731,10.8996222 42.3659508,10.8997257 42.3658877,10.8997786 42.3658637,10.8999375 42.3658032,10.9000891 42.3657623,10.9000951 42.3657472,10.9002191 42.3656645,10.9004249 42.3655436,10.9004851 42.3655071,10.9005753 42.3654813,10.9006596 42.3654627,10.9006921 42.3654644,10.9008244 42.3654858,10.9009977 42.3655222))" .
+        
+              <urn:osm:way:uuid:61132620> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Fanfulla" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132620> .
+                
+              <urn:osm:way:geometry:uuid:61132620> ogc:asWKT "LineString((10.9007679 42.3657694,10.9007426 42.3655738,10.9006162 42.3655889,10.9005753 42.3654813))" .
+        
+              <urn:osm:way:uuid:61132621> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Tripoli" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132621> .
+                
+              <urn:osm:way:geometry:uuid:61132621> ogc:asWKT "LineString((10.9200543 42.35952,10.9200448 42.3595057))" .
+        
+              <urn:osm:way:uuid:61132622> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dell'Asilo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132622> .
+                
+              <urn:osm:way:geometry:uuid:61132622> ogc:asWKT "LineString((10.9214451 42.3588031,10.9215958 42.3583016,10.9216956 42.3577054))" .
+        
+              <urn:osm:way:uuid:61132623> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via del Campanile" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132623> .
+                
+              <urn:osm:way:geometry:uuid:61132623> ogc:asWKT "LineString((10.8994982 42.3662861,10.8994019 42.3662603,10.8993405 42.3662683,10.8991708 42.3663376,10.8990914 42.3663661,10.8990216 42.3663812))" .
+        
+              <urn:osm:way:uuid:61132627> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Sant'Antonio" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132627> .
+                
+              <urn:osm:way:geometry:uuid:61132627> ogc:asWKT "LineString((10.8995175 42.3665733,10.8995331 42.3665982,10.8995885 42.3666498,10.8996488 42.3666878,10.8997016 42.3667227,10.8997594 42.3667547,10.8998015 42.3667858,10.8998653 42.3668036))" .
+        
+              <urn:osm:way:uuid:61132628> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Zara" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132628> .
+                
+              <urn:osm:way:geometry:uuid:61132628> ogc:asWKT "LineString((10.9210675 42.3589582,10.9209633 42.3587357))" .
+        
+              <urn:osm:way:uuid:61132631> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Roma" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132631> .
+                
+              <urn:osm:way:geometry:uuid:61132631> ogc:asWKT "LineString((10.9009977 42.3655222,10.9010302 42.36554,10.9010194 42.3657019,10.9010086 42.365749,10.9009881 42.3657872,10.9009725 42.3658207,10.9009243 42.3658495))" .
+        
+              <urn:osm:way:uuid:61132632> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Vicolo Cecchi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132632> .
+                
+              <urn:osm:way:geometry:uuid:61132632> ogc:asWKT "LineString((10.8998845 42.3662087,10.8999543 42.3662621,10.899994 42.3663154,10.8999904 42.3663288,10.9000951 42.3664106,10.9001469 42.3664212,10.9002335 42.3664701))" .
+        
+              <urn:osm:way:uuid:61132634> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Casamatta" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132634> .
+                
+              <urn:osm:way:geometry:uuid:61132634> ogc:asWKT "LineString((10.8996811 42.3664826,10.8996234 42.3665226,10.8995776 42.3665511,10.8995175 42.3665733,10.899491 42.3665733,10.8993803 42.3666097,10.8993586 42.3666026,10.8992382 42.3666542))" .
+        
+              <urn:osm:way:uuid:61132636> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Fiume" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132636> .
+                
+              <urn:osm:way:geometry:uuid:61132636> ogc:asWKT "LineString((10.9198193 42.3595834,10.9197311 42.3595002,10.9195928 42.3594375,10.9194789 42.3593968))" .
+        
+              <urn:osm:way:uuid:61132637> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Cavour" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132637> .
+                
+              <urn:osm:way:geometry:uuid:61132637> ogc:asWKT "LineString((10.9003358 42.3663652,10.9004923 42.3665039))" .
+        
+              <urn:osm:way:uuid:61132639> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Regina" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132639> .
+                
+              <urn:osm:way:geometry:uuid:61132639> ogc:asWKT "LineString((10.8995379 42.3659731,10.8995465 42.365992,10.8995548 42.3660104,10.8995836 42.3660184,10.8996161 42.3660033,10.8996787 42.3660435,10.8997557 42.3660931,10.8998917 42.3661749,10.8998845 42.3662087))" .
+        
+              <urn:osm:way:uuid:61132641> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Cannelle" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132641> .
+                
+              <urn:osm:way:geometry:uuid:61132641> ogc:asWKT "LineString((10.9233858 42.3564765,10.9235256 42.3563585,10.9236404 42.3562924,10.9236794 42.3563008,10.9236656 42.3563433,10.9235899 42.3563992,10.9235715 42.3564264,10.9235853 42.3564484,10.9236289 42.3564484,10.9238217 42.3563823,10.9239939 42.3563585,10.9244737 42.3562364))" .
+        
+              <urn:osm:way:uuid:61132646> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via San Lorenzo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132646> .
+                
+              <urn:osm:way:geometry:uuid:61132646> ogc:asWKT "LineString((10.9199584 42.3595729,10.9198193 42.3595834,10.9197149 42.3596234,10.9195554 42.3596772,10.9190917 42.3598746))" .
+        
+              <urn:osm:way:uuid:61132648> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Michelangelo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132648> .
+                
+              <urn:osm:way:geometry:uuid:61132648> ogc:asWKT "LineString((10.9009207 42.3661972,10.9010519 42.366142,10.9011239 42.3661191))" .
+        
+              <urn:osm:way:uuid:61132649> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via del Dolce" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132649> .
+                
+              <urn:osm:way:geometry:uuid:61132649> ogc:asWKT "LineString((10.8998717 42.3630513,10.8998869 42.3631036,10.8999157 42.3631797,10.8999427 42.3632456,10.8999765 42.3633132,10.9000187 42.363396,10.9000559 42.3634619,10.90011 42.3635616,10.9001607 42.3636325,10.9002266 42.3637271,10.9002806 42.3637863,10.9003432 42.3638742,10.9004074 42.3639586,10.9004766 42.3640212,10.9005476 42.3641023,10.900649 42.3641901,10.9007436 42.3642662,10.9008298 42.3643456,10.9008906 42.3644115,10.9009514 42.3645044,10.9010088 42.3646267,10.9010584 42.3647289,10.9010847 42.3648516,10.9011126 42.3649713,10.9011242 42.3650679,10.9011161 42.3651268,10.9010983 42.3651811,10.9010841 42.3652438,10.9010703 42.3653099,10.9010391 42.3654284))" .
+        
+              <urn:osm:way:uuid:61132652> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Cavero" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132652> .
+                
+              <urn:osm:way:geometry:uuid:61132652> ogc:asWKT "LineString((10.918499 42.360435,10.9186908 42.3605048,10.9190685 42.3605497))" .
+        
+              <urn:osm:way:uuid:61132653> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via del Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132653> .
+                
+              <urn:osm:way:geometry:uuid:61132653> ogc:asWKT "LineString((10.9190917 42.3598746,10.918933 42.3600035,10.9188158 42.3600843,10.9186832 42.3601714,10.9185549 42.3603106,10.918499 42.360435,10.9184435 42.3605691,10.9183361 42.3606577,10.9182689 42.3607756,10.9182135 42.3608946,10.9181794 42.3609647,10.9181222 42.3610446,10.9179689 42.3612293,10.9178769 42.3613243,10.9177794 42.3614686,10.9176156 42.3616344,10.9174761 42.3617953,10.9173752 42.361948,10.9173482 42.3620025,10.9173147 42.3620409,10.9172727 42.3620808,10.9171578 42.362149,10.9169147 42.3622796,10.9164983 42.3626221,10.9164273 42.362686,10.9163673 42.3627322,10.915899 42.3629142,10.9158095 42.3629696,10.9157145 42.3630547,10.9155461 42.363216,10.9153416 42.3633802,10.9152666 42.3634518,10.9151854 42.3635884,10.9151142 42.363684,10.9150736 42.3637412,10.914941 42.363842,10.9147987 42.3639717,10.9147603 42.364046,10.9146925 42.3641763,10.9146107 42.3642337))" .
+        
+              <urn:osm:way:uuid:61132654> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Armando Diaz" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132654> .
+                
+              <urn:osm:way:geometry:uuid:61132654> ogc:asWKT "LineString((10.920586 42.359424,10.920419 42.3592145,10.9203706 42.3587907,10.9202748 42.3586033))" .
+        
+              <urn:osm:way:uuid:61132655> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dei Lombi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132655> .
+                
+              <urn:osm:way:geometry:uuid:61132655> ogc:asWKT "LineString((10.900013 42.36724,10.899988 42.3671877,10.8999543 42.3671441,10.8999134 42.3671148,10.89984 42.3670881,10.8997882 42.3670632,10.8997678 42.3670428,10.8997918 42.367001,10.8998171 42.3669841,10.8998677 42.3669272))" .
+        
+              <urn:osm:way:uuid:61132657> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dei Lombi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132657> .
+                
+              <urn:osm:way:geometry:uuid:61132657> ogc:asWKT "LineString((10.8998653 42.3668036,10.899846 42.3668498,10.8998496 42.3668943,10.8998677 42.3669272,10.8998749 42.367009,10.8999639 42.367089,10.9001409 42.3671931,10.9004598 42.3672846,10.9005549 42.3671682,10.9005476 42.3670739))" .
+        
+              <urn:osm:way:uuid:61132661> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Cannelle" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61132661> .
+                
+              <urn:osm:way:geometry:uuid:61132661> ogc:asWKT "LineString((10.922105 42.3554337,10.9220494 42.3554882,10.9219246 42.355551,10.9218559 42.3556075,10.9218117 42.3556487,10.9217199 42.3558495,10.9216433 42.355941,10.9215131 42.356032,10.9213913 42.3560817,10.9210944 42.3560973))" .
+        
+              <urn:osm:way:uuid:61160795> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Vicolo Bottego" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160795> .
+                
+              <urn:osm:way:geometry:uuid:61160795> ogc:asWKT "LineString((10.9001685 42.3660131,10.9002143 42.3660442,10.9004345 42.366295))" .
+        
+              <urn:osm:way:uuid:61160796> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Piazza dei Lombi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160796> .
+                
+              <urn:osm:way:geometry:uuid:61160796> ogc:asWKT "LineString((10.9005476 42.3670739,10.9005115 42.3669574,10.9005332 42.3669254,10.9005705 42.3668863,10.9005356 42.366784))" .
+        
+              <urn:osm:way:uuid:61160797> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Alfieri" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160797> .
+                
+              <urn:osm:way:geometry:uuid:61160797> ogc:asWKT "LineString((10.9003683 42.3659117,10.9003334 42.3658388,10.9002191 42.3656645,10.9001516 42.3656053))" .
+        
+              <urn:osm:way:uuid:61160798> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Raffaello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160798> .
+                
+              <urn:osm:way:geometry:uuid:61160798> ogc:asWKT "LineString((10.9011239 42.3661191,10.9011434 42.3661438,10.9011735 42.3663376,10.9010639 42.3663625,10.9010772 42.3663812,10.901011 42.3664359,10.9009245 42.3663799,10.9008401 42.3664372,10.9004165 42.3666835))" .
+        
+              <urn:osm:way:uuid:61160799> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Colombo" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160799> .
+                
+              <urn:osm:way:geometry:uuid:61160799> ogc:asWKT "LineString((10.900532 42.3658308,10.9005741 42.3658326,10.9006764 42.3659171,10.9006957 42.3659082,10.9007907 42.3659642))" .
+        
+              <urn:osm:way:uuid:61160800> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Ludovico Muratori" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160800> .
+                
+              <urn:osm:way:geometry:uuid:61160800> ogc:asWKT "LineString((10.8993402 42.3668736,10.8991937 42.3667742,10.8992888 42.3667093,10.8992382 42.3666542,10.8991829 42.3666097,10.899142 42.3665662,10.8991251 42.366527,10.8991203 42.3664968))" .
+        
+              <urn:osm:way:uuid:61160801> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via San Martino" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160801> .
+                
+              <urn:osm:way:geometry:uuid:61160801> ogc:asWKT "LineString((10.9003298 42.3668231,10.9002576 42.3669005,10.9001685 42.3669814,10.9001204 42.3670028,10.9000638 42.3670437,10.8999387 42.3669503,10.8998677 42.3669272))" .
+        
+              <urn:osm:way:uuid:61160802> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Largo Lubrani" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160802> .
+                
+              <urn:osm:way:geometry:uuid:61160802> ogc:asWKT "LineString((10.9013925 42.3658722,10.9013546 42.3658876,10.9013922 42.3659412,10.9013713 42.3659646,10.9011265 42.3658454,10.9010349 42.3658352,10.9009725 42.3658207))" .
+        
+              <urn:osm:way:uuid:61160803> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via della Chiesa" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160803> .
+                
+              <urn:osm:way:geometry:uuid:61160803> ogc:asWKT "LineString((10.8994531 42.3663304,10.8994982 42.3662861,10.8996261 42.3662167,10.8997557 42.3660931))" .
+        
+              <urn:osm:way:uuid:61160804> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Vittorio Emanuele" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160804> .
+                
+              <urn:osm:way:geometry:uuid:61160804> ogc:asWKT "LineString((10.9009243 42.3658495,10.9008172 42.3659526,10.9007907 42.3659642,10.9007173 42.3660442,10.9006752 42.3661189,10.9006199 42.3661527,10.9005416 42.3662176,10.9004772 42.3662641,10.9004345 42.366295,10.9003358 42.3663652,10.9002335 42.3664701,10.9001276 42.366527,10.9000434 42.3666195))" .
+        
+              <urn:osm:way:uuid:61160805> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Carducci" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160805> .
+                
+              <urn:osm:way:geometry:uuid:61160805> ogc:asWKT "LineString((10.9000241 42.3661127,10.8999375 42.3660335,10.8998701 42.3659722,10.8998544 42.3659597,10.8998255 42.3659126,10.8997786 42.3658637))" .
+        
+              <urn:osm:way:uuid:61160806> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Largo II Febbraio" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160806> .
+                
+              <urn:osm:way:geometry:uuid:61160806> ogc:asWKT "LineString((10.9004923 42.3665039,10.9003093 42.3666658,10.9001661 42.3667618,10.9001084 42.3667876))" .
+        
+              <urn:osm:way:uuid:61160807> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Piazza dei Lombi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160807> .
+                
+              <urn:osm:way:geometry:uuid:61160807> ogc:asWKT "LineString((10.9004923 42.3665039,10.9004165 42.3666835,10.9003298 42.3668231))" .
+        
+              <urn:osm:way:uuid:61160808> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Guglielmo Marconi" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61160808> .
+                
+              <urn:osm:way:geometry:uuid:61160808> ogc:asWKT "LineString((10.8996089 42.3664283,10.8996811 42.3664826,10.8998015 42.3665377,10.8999146 42.3665875,10.9000181 42.3666275,10.9000434 42.3666195))" .
+        
+              <urn:osm:way:uuid:61339379> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Piazza Gloriosa" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:61339379> .
+                
+              <urn:osm:way:geometry:uuid:61339379> ogc:asWKT "LineString((10.9014468 42.3656912,10.9014784 42.3656888,10.9016958 42.3655434,10.9017513 42.3655036,10.9017822 42.3654781,10.9018636 42.3653978,10.9018872 42.3653721))" .
+        
+              <urn:osm:way:uuid:71320849> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Tripoli" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:71320849> .
+                
+              <urn:osm:way:geometry:uuid:71320849> ogc:asWKT "LineString((10.9199803 42.3594086,10.9198308 42.3592784))" .
+        
+              <urn:osm:way:uuid:71320850> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Tripoli" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:71320850> .
+                
+              <urn:osm:way:geometry:uuid:71320850> ogc:asWKT "LineString((10.9200448 42.3595057,10.9199803 42.3594086))" .
+        
+              <urn:osm:way:uuid:71322628> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:71322628> .
+                
+              <urn:osm:way:geometry:uuid:71322628> ogc:asWKT "LineString((10.9208321 42.3590426,10.9208962 42.3590199,10.9210675 42.3589582,10.9214451 42.3588031,10.9224434 42.3583981,10.9228211 42.3582341,10.9229063 42.3581906,10.922952 42.3581379,10.9229596 42.3580876,10.922966 42.357856,10.922944 42.3576792,10.9229078 42.3574086,10.9228485 42.3573031,10.9227527 42.3572081,10.922664 42.3571596,10.922556 42.3571226,10.9224182 42.3570967,10.9223026 42.3570995,10.9221771 42.3571093,10.9218751 42.3571527,10.9217647 42.3571744,10.9217098 42.3572028,10.921613 42.3572825,10.9215195 42.3573355,10.921369 42.357383,10.920934 42.357517,10.9207969 42.3575858,10.9205182 42.3578472,10.9204244 42.3579269,10.9203297 42.3579873,10.9202404 42.3580163,10.9201049 42.3580308,10.9197847 42.3580404,10.9197015 42.3580582,10.9196244 42.3580973,10.919502 42.3581627,10.9193474 42.3582541,10.9192067 42.3583594,10.9190879 42.3584528,10.9189579 42.3585119,10.9186794 42.3585976,10.9184745 42.358653,10.918326 42.3586657,10.9180455 42.3586422,10.9179364 42.3586129,10.9177599 42.3585274,10.9176724 42.3585071,10.917595 42.3585168,10.9175475 42.3585459,10.917495 42.3586087,10.9174675 42.3586918,10.917439 42.3587469,10.9173953 42.3588234,10.9173128 42.3589271,10.9171208 42.3591298,10.916845 42.3594041,10.9167202 42.3594987,10.9165749 42.3596058,10.91642 42.35971,10.9162043 42.3598158,10.9160016 42.3598829,10.9158246 42.3599148,10.9156166 42.3599273,10.9154802 42.3599461,10.9153944 42.3600005,10.9153377 42.3600701,10.915329 42.360124,10.9153388 42.3601879,10.9154182 42.3602659,10.915761 42.360492,10.91609 42.360683,10.91622 42.360782,10.9163669 42.3609488,10.9164306 42.3610601,10.9164427 42.3611663,10.9164159 42.3612736,10.9163353 42.3614021,10.916152 42.361726,10.9160723 42.3618661,10.915941 42.3620627,10.9157315 42.362289,10.9154754 42.3625169,10.9153274 42.3626575,10.9152139 42.3628137,10.9150608 42.3630105,10.9148272 42.3632146,10.9146842 42.3633616,10.9143856 42.3638969,10.9143029 42.3640182,10.9142701 42.3640516,10.9142183 42.3640878,10.9141443 42.3641394,10.9140878 42.3641664,10.9140429 42.3641878,10.91395 42.3642323,10.9136448 42.3643703,10.9130885 42.3646121,10.9129561 42.3646615,10.9127062 42.364723,10.9123793 42.3647643,10.912023 42.364795,10.911479 42.364856,10.9108527 42.3649661,10.9104527 42.3650426,10.9102931 42.3650611,10.9100452 42.3650656,10.909868 42.365077,10.9097784 42.3651218,10.909668 42.365242,10.9096281 42.365346,10.909503 42.3654869,10.9093463 42.3655904,10.9091623 42.3656669,10.9089842 42.3657166,10.9087742 42.3657165,10.9084211 42.3656842,10.908226 42.365737,10.907897 42.365993,10.9077 42.366165,10.907568 42.366321,10.907449 42.366428,10.907321 42.366565,10.907033 42.366725,10.906583 42.366931,10.906153 42.367088,10.905864 42.367221,10.905518 42.36742,10.905159 42.367683,10.904871 42.367992,10.904644 42.368324,10.904562 42.368457,10.904424 42.368824,10.904397 42.368949,10.904378 42.369071,10.904377 42.369213,10.904381 42.369369,10.904377 42.369503,10.904356 42.369625,10.904317 42.369705,10.904274 42.36977,10.904192 42.369846,10.904109 42.369911,10.904027 42.369956,10.903967 42.369987,10.903827 42.370056,10.903643 42.370143,10.903536 42.370185,10.903439 42.37022,10.903348 42.370235,10.903245 42.37025,10.90308 42.370258,10.902775 42.370265,10.902586 42.370281,10.902405 42.370315,10.902265 42.370365,10.902134 42.370441,10.901968 42.370555,10.901804 42.370693,10.901701 42.370796,10.901627 42.370906,10.901577 42.371009,10.901501 42.371154,10.901454 42.371242,10.901392 42.371318,10.90133 42.37136,10.901042 42.371479,10.900774 42.371582,10.900513 42.371677,10.900301 42.371776,10.900079 42.371875,10.900033 42.371917,10.89998 42.371978,10.899971 42.372047,10.899971 42.372127,10.899992 42.372219,10.900054 42.372333,10.900074 42.372444,10.900082 42.37255,10.900074 42.372638,10.900054 42.372711,10.89996 42.372894,10.89987 42.373027,10.89979 42.3731505,10.899765 42.37331,10.899807 42.373531,10.899874 42.373668,10.899951 42.373779,10.900033 42.373912,10.900198 42.374084,10.9003099 42.3741702,10.9004337 42.3742225,10.9005245 42.374294,10.900581 42.3743979,10.9005815 42.3744707,10.900469 42.3747187,10.9003668 42.3748352,10.9002804 42.3748705,10.9001824 42.3748578,10.9001405 42.3747928,10.9000953 42.3746571,10.9000513 42.3745223,10.8999431 42.3744087,10.8997951 42.3743212,10.899635 42.374221,10.8994666 42.3740261,10.8993823 42.3739027,10.8992284 42.3738108,10.8989796 42.3737489,10.898723 42.3737233,10.8985679 42.3736653,10.8984047 42.373531,10.8982779 42.3733608,10.898124 42.3731456,10.8979757 42.372878,10.8979782 42.372822,10.89794 42.3727031,10.897923 42.3726012,10.8979103 42.3724951,10.897906 42.3723932,10.8979018 42.3722955,10.8978678 42.3722106,10.8978126 42.372147,10.8977589 42.3721108,10.8976741 42.3720782,10.8976067 42.3720695,10.8975328 42.3720847,10.8974546 42.3720934,10.8973828 42.3720956,10.8972807 42.3720891,10.8971785 42.3720739,10.8970785 42.3720521,10.8969742 42.3720174,10.8969428 42.371998,10.8967069 42.3719282,10.8966317 42.3719019,10.8965406 42.3718957,10.8965114 42.3718937,10.8963686 42.3719121,10.8962842 42.3719264,10.8961743 42.3719761,10.8960951 42.3720006,10.8960125 42.372027,10.8959184 42.3720332,10.8958306 42.3720325,10.8957493 42.372018,10.8956821 42.3719992,10.8955985 42.3719568,10.8954874 42.371858,10.8954081 42.3717822,10.8953302 42.3717004,10.8952585 42.3716044,10.8951775 42.3714953,10.8950831 42.371317,10.8950388 42.371209,10.8950055 42.3711119,10.8949897 42.3710479,10.8949818 42.3709806,10.8949834 42.3708719))" .
+        
+              <urn:osm:way:uuid:71324176> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dell'allume" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:71324176> .
+                
+              <urn:osm:way:geometry:uuid:71324176> ogc:asWKT "LineString((10.8801504 42.3630592,10.8801528 42.3629791,10.880259 42.3628026,10.880396 42.362644,10.8805558 42.3625269,10.8808349 42.3623858,10.8810775 42.3622328,10.8812563 42.3620735,10.8813155 42.3619954,10.8813248 42.3618956,10.8812773 42.3617395,10.8812939 42.3615778,10.8813287 42.3614905,10.8813869 42.3613843,10.8814197 42.3612324,10.8814139 42.3611438,10.8813832 42.3610644,10.8813607 42.3609803,10.8813302 42.3609056,10.8812608 42.3608272,10.8811949 42.3607464,10.8810963 42.3606619,10.8810164 42.360561,10.8809463 42.3604144,10.8808692 42.3602449,10.8807478 42.3600428,10.8806384 42.3598854,10.8805466 42.3598061,10.8805208 42.3597111,10.8805369 42.3596264,10.8805434 42.3595305,10.8805615 42.3594329,10.8805709 42.359348,10.8805484 42.3592314,10.8805267 42.3591601,10.880497 42.359081,10.880476 42.358997,10.880478 42.358917,10.880498 42.35884,10.880539 42.358768,10.880579 42.358703,10.880602 42.358631,10.880608 42.35857,10.8805774 42.3584828,10.8805286 42.3584173,10.8804895 42.3582775,10.8804693 42.3581944,10.8804808 42.358093,10.880497 42.358043,10.880497 42.357997,10.8805364 42.3579518,10.8805768 42.3579039,10.8806356 42.3578276,10.8806651 42.3577298,10.8806895 42.3576301,10.8807208 42.3575337,10.8807473 42.3574407,10.880751 42.357276,10.8807584 42.357196,10.880764 42.357116,10.880764 42.357036,10.880764 42.356922,10.880785 42.356834,10.880814 42.356773,10.880853 42.356727,10.880896 42.356681,10.880973 42.356624,10.881217 42.356437,10.881346 42.356304,10.881472 42.35617,10.881608 42.356082,10.881695 42.356018,10.881773 42.355941,10.881945 42.355804,10.88202 42.355724,10.8820889 42.3556458,10.882147 42.355533,10.8822192 42.3554512,10.8822934 42.3553585,10.882389 42.3552401,10.8824767 42.3551447))" .
+        
+              <urn:osm:way:uuid:71327082> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via di Mezzo Franco" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:71327082> .
+                
+              <urn:osm:way:geometry:uuid:71327082> ogc:asWKT "LineString((10.8787164 42.3649622,10.8787091 42.3650377,10.8787302 42.3650825,10.878873 42.365196,10.8792279 42.3652892,10.879489 42.365306,10.879776 42.36539,10.879989 42.365634,10.880259 42.365928,10.880484 42.3661,10.880558 42.366134))" .
+        
+              <urn:osm:way:uuid:306532416> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via dell'allume" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306532416> .
+                
+              <urn:osm:way:geometry:uuid:306532416> ogc:asWKT "LineString((10.8824767 42.3551447,10.8826355 42.3550227))" .
+        
+              <urn:osm:way:uuid:306643467> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643467> .
+                
+              <urn:osm:way:geometry:uuid:306643467> ogc:asWKT "LineString((10.8968328 42.3690852,10.8968184 42.3690476))" .
+        
+              <urn:osm:way:uuid:306643468> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643468> .
+                
+              <urn:osm:way:geometry:uuid:306643468> ogc:asWKT "LineString((10.8949834 42.3708719,10.8949811 42.3707987,10.8949751 42.3707146,10.8949541 42.3706425,10.8949331 42.3705524,10.8949165 42.3704457,10.8948985 42.3703736,10.8948955 42.3702954,10.8949135 42.3702399,10.8949511 42.3701978,10.8949917 42.3701707,10.8950352 42.3701617,10.8950983 42.3701587,10.8951795 42.3701662,10.8952275 42.3701978,10.8952936 42.3702774,10.8953387 42.3703646,10.8953973 42.3704367,10.8954799 42.3704983,10.8955611 42.3705358,10.8955998 42.3705504))" .
+        
+              <urn:osm:way:uuid:306643469> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643469> .
+                
+              <urn:osm:way:geometry:uuid:306643469> ogc:asWKT "LineString((10.8965478 42.3700366,10.8966964 42.3700657,10.8967883 42.3701006,10.896879 42.3701361,10.8969648 42.3701713,10.8971349 42.3702299,10.8973381 42.3703153,10.8975115 42.3703613,10.8976023 42.3703857,10.8976809 42.3704047,10.8977418 42.3704074,10.8977947 42.370402,10.8978245 42.3703789,10.8978475 42.3703424,10.8978516 42.3703004,10.8978272 42.3702624,10.8977771 42.3702218,10.8976822 42.370169,10.8975684 42.370108,10.8974573 42.3700348,10.8973652 42.3699847,10.8972758 42.3699183,10.8971945 42.3698601,10.8971457 42.3697978,10.8970997 42.3697178,10.8970766 42.3696338,10.897059 42.3695309,10.8970292 42.3694347,10.8969872 42.369348,10.8969507 42.3692721,10.8968924 42.3691719,10.8968328 42.3690852))" .
+        
+              <urn:osm:way:uuid:306643470> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643470> .
+                
+              <urn:osm:way:geometry:uuid:306643470> ogc:asWKT "LineString((10.8968184 42.3690476,10.8967989 42.3690134,10.89678 42.3689524,10.89678 42.3688806,10.8967894 42.3688386,10.8968165 42.3687966,10.8968623 42.3687445,10.8969451 42.3686712,10.8970315 42.3686001,10.8971534 42.368511,10.8973147 42.3683972,10.8974812 42.3682742,10.8976131 42.3681761,10.8976903 42.3681125,10.8977351 42.3680637,10.8977689 42.3680136,10.8977892 42.3679567,10.8978014 42.3678889,10.8978014 42.3678225,10.8977831 42.3677317,10.8977527 42.3676532,10.8977107 42.3675529,10.89767 42.3674744,10.8976199 42.367408,10.8975576 42.3673253,10.8974844 42.3672508,10.8974208 42.3671899,10.8973844 42.3671532,10.8973666 42.3671316,10.8973205 42.367072,10.8972921 42.3670259,10.8972758 42.3669704,10.8972731 42.366904,10.8972744 42.3668417,10.8972948 42.3667875,10.8973178 42.3667401,10.897353 42.3666873,10.8974058 42.3666412,10.8974614 42.3665924,10.8975359 42.3665342,10.8976091 42.3664691,10.8976483 42.3664258,10.8976931 42.3663608,10.8977147 42.3663106,10.8977378 42.3662253,10.8977649 42.3661467,10.8977933 42.3660898,10.8978367 42.3660207,10.8978949 42.36593,10.8979721 42.3658243,10.8981692 42.3655456,10.8981965 42.3655097,10.898258 42.3654341,10.8983528 42.3653799,10.8984433 42.3653754,10.8985291 42.3654021,10.8986218 42.3654789,10.8987126 42.3655588,10.8987951 42.3655869,10.8989529 42.3656085,10.8992401 42.3656288,10.8994458 42.3656239,10.8995505 42.3655953,10.8996436 42.365551,10.8997215 42.3655181,10.8998351 42.3654724,10.899914 42.3654334,10.9000828 42.3653577,10.9001415 42.3653353,10.9002041 42.3653157,10.9002636 42.3653096,10.9003757 42.3653289,10.9005465 42.36536,10.9009538 42.3654149,10.9010391 42.3654284,10.9011317 42.3654486,10.9011611 42.3654646,10.901229 42.3655174,10.9012813 42.3655626,10.9013178 42.3655983,10.9013818 42.3656503,10.9014468 42.3656912))" .
+        
+              <urn:osm:way:uuid:306643471> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643471> .
+                
+              <urn:osm:way:geometry:uuid:306643471> ogc:asWKT "LineString((10.8961936 42.3703721,10.8962386 42.3702969,10.8962807 42.3702338,10.8963276 42.3701452,10.8963565 42.3701036,10.8964472 42.3700521,10.8965478 42.3700366))" .
+        
+              <urn:osm:way:uuid:306643472> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Strada Provinciale di Castello" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643472> .
+                
+              <urn:osm:way:geometry:uuid:306643472> ogc:asWKT "LineString((10.8955998 42.3705504,10.8956407 42.3705659,10.8957278 42.3705734,10.8958315 42.3705779,10.8959336 42.3705704,10.8959998 42.3705508,10.8960779 42.3705013,10.8961365 42.3704412,10.8961936 42.3703721))" .
+        
+              <urn:osm:way:uuid:306643473> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643473> .
+                
+              <urn:osm:way:geometry:uuid:306643473> ogc:asWKT "LineString((10.8890535 42.3707615,10.8889906 42.3708408,10.8889278 42.3709636,10.888844 42.3711012,10.8887677 42.3712479,10.8887123 42.3713602,10.8886674 42.3714724,10.8886375 42.3715652,10.888624 42.3716445,10.8886165 42.3717523,10.8886315 42.3718615,10.8886809 42.3720007,10.8887287 42.3721249,10.8887796 42.3722865,10.8888036 42.3724077,10.8888155 42.3725035,10.8887991 42.3725963,10.8887766 42.3726382,10.8887572 42.3726906,10.8887617 42.372746,10.8887781 42.3728702,10.8888066 42.3729974,10.888838 42.3731635,10.8888664 42.3733341,10.8888904 42.3734913,10.8889278 42.3736185,10.8889847 42.3737995,10.8890385 42.3739582,10.8890834 42.3740555,10.8891478 42.3741497,10.8892061 42.3742335,10.8892338 42.3742595,10.8893049 42.3743263,10.8893827 42.3744086,10.8894905 42.374482,10.8895923 42.3745523,10.889719 42.374637,10.889976 42.374782,10.890263 42.374908,10.890406 42.374973,10.890484 42.375034,10.890465 42.375122,10.890387 42.375167,10.890255 42.375167,10.890028 42.375129,10.889822 42.37511,10.889638 42.375114,10.889411 42.375125,10.889153 42.375171,10.888958 42.375221,10.888772 42.375274,10.888612 42.375331,10.888509 42.375331,10.8884295 42.3753087,10.888402 42.375301,10.888258 42.37524,10.888175 42.375164,10.888036 42.374927,10.887908 42.374687,10.887723 42.374355,10.887661 42.374179,10.88762 42.373886,10.887475 42.373477,10.887311 42.373126,10.887193 42.372894,10.887069 42.372703,10.88693 42.372592,10.886796 42.372501,10.8866 42.372425,10.886329 42.372348,10.886096 42.37231,10.88573 42.372253,10.885605 42.372222,10.885479 42.372192,10.885293 42.372013,10.885112 42.371692,10.885067 42.371589,10.884943 42.371482,10.88478 42.371425,10.884593 42.371437,10.884479 42.371479,10.884408 42.37154,10.884367 42.371624,10.884375 42.371742,10.884429 42.37186,10.884655 42.372158,10.884799 42.37239,10.884861 42.372554,10.884882 42.372661,10.88484 42.372756,10.884765 42.372859,10.884593 42.372921,10.884408 42.372909,10.884291 42.372837,10.884186 42.372745,10.884161 42.372623,10.88414 42.372467,10.88412 42.372386,10.884024 42.372318,10.883935 42.372276,10.883832 42.372306,10.883749 42.372425,10.883732 42.372612,10.883708 42.372818,10.883708 42.372928,10.88377 42.373024,10.883852 42.373134,10.883922 42.373207,10.884204 42.373363,10.884271 42.373462,10.88429 42.373588,10.884208 42.373638,10.88412 42.37368,10.883985 42.373645,10.883897 42.373596,10.883667 42.37339,10.883379 42.373214,10.883214 42.373031,10.883183 42.372936,10.883194 42.372802,10.883159 42.372699,10.883091 42.372634,10.882988 42.372573,10.882885 42.372516,10.88272 42.372398,10.882597 42.372272,10.882473 42.372089,10.882391 42.371898,10.882337 42.371685,10.882207 42.371299,10.882003 42.370792,10.881917 42.37054,10.881876 42.370426,10.881886 42.370315,10.881902 42.370162,10.881958 42.370002,10.882041 42.369842,10.8821411 42.3697431,10.882205 42.369701,10.882535 42.369541,10.88272 42.369461,10.882788 42.369384,10.882821 42.3693203,10.8827775 42.3692527,10.8827359 42.3692101,10.8825978 42.369112,10.8824597 42.3690149,10.8823068 42.368899,10.8822236 42.3688187,10.8821941 42.3687513,10.882212 42.368595,10.882374 42.368507,10.882555 42.368457,10.882826 42.368381,10.882948 42.368289,10.8829953 42.3682175,10.8829805 42.3679156,10.8830079 42.3677463,10.8830529 42.3676163,10.883086 42.3674982,10.8830392 42.3673481,10.882905 42.367103,10.882578 42.366561,10.8825557 42.3664702,10.882515 42.36631,10.882454 42.366226,10.882329 42.366134,10.882123 42.366027,10.8820488 42.3660003,10.881958 42.365966,10.881797 42.365955,10.881691 42.365978,10.881547 42.365974,10.881343 42.365924,10.881309 42.365787))" .
+        
+              <urn:osm:way:uuid:306643475> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:306643475> .
+                
+              <urn:osm:way:geometry:uuid:306643475> ogc:asWKT "LineString((10.8895978 42.3708451,10.8895818 42.370775,10.8895414 42.3707062,10.8894725 42.3706598,10.8893708 42.3706283,10.8892855 42.3706283,10.8891957 42.3706448,10.8891313 42.3706882,10.8890535 42.3707615))" .
+        
+              <urn:osm:way:uuid:307125351> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Arenella" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125351> .
+                
+              <urn:osm:way:geometry:uuid:307125351> ogc:asWKT "LineString((10.9144864 42.3641708,10.9146107 42.3642337,10.9148231 42.3643125,10.9148548 42.3643154,10.914884 42.3643122,10.9149671 42.3642895,10.91574 42.363971,10.9167139 42.3635365,10.9168169 42.3635015,10.9169019 42.3634905,10.9170019 42.3634945,10.9170729 42.3635175,10.9171249 42.3635555,10.9171469 42.3636085,10.9171489 42.3636585,10.9171289 42.3637155,10.9170859 42.3637765,10.9170429 42.3638265,10.9168653 42.3640667,10.9168333 42.3641197,10.9168043 42.3641927,10.9167873 42.3642687,10.9167833 42.3643447,10.9167685 42.3646236,10.9167465 42.3647186,10.9166645 42.3648946,10.9165825 42.3650356,10.9165255 42.3650926,10.9164585 42.3651306,10.9162698 42.3651879,10.9158958 42.365293,10.9157798 42.365324,10.9156548 42.365339,10.9155028 42.365351,10.9153119 42.3653692,10.915102 42.365402,10.914979 42.365432,10.914876 42.36547,10.9147934 42.3655104,10.914711 42.365604,10.914649 42.365661,10.914595 42.365684,10.914526 42.365711,10.914444 42.365726,10.914369 42.365726,10.9142722 42.3657183,10.914217 42.365699,10.91412 42.36568,10.914019 42.365673,10.913916 42.365673,10.9138444 42.3657018,10.9137268 42.3657724,10.9133882 42.3660502,10.9130936 42.3662684,10.9127521 42.366484,10.912573 42.3665952,10.9124585 42.3666554,10.9122631 42.3667306,10.9119413 42.3668322,10.9115684 42.3669401,10.9111656 42.3670694,10.910987 42.3671194,10.9108432 42.367158,10.910705 42.3671878,10.9105611 42.3672052,10.9104593 42.3672306,10.9103938 42.3672498,10.9103379 42.3672856,10.9102971 42.3673464,10.9102653 42.3674318,10.9101621 42.3679296,10.9101201 42.3681608,10.9100973 42.3682566,10.910059 42.368354,10.9099806 42.3684954,10.909833 42.3686306,10.9096042 42.3688037,10.9094801 42.368895,10.9093255 42.3690481,10.9092425 42.3692172,10.9092176 42.3692774,10.909164 42.3694483,10.9092253 42.3695758,10.9093281 42.3697524,10.9094054 42.3699447,10.9094948 42.3701189,10.9096264 42.3702487,10.9098332 42.3703037,10.910144 42.3703867,10.9104214 42.3704729,10.910498 42.3704986,10.9107523 42.3705839,10.9110296 42.3706458,10.9114696 42.3706704,10.9116759 42.370683,10.9117572 42.3706811,10.9118389 42.3706536,10.912026 42.3705654,10.9121214 42.3704605,10.9123456 42.370346))" .
+        
+              <urn:osm:way:uuid:307125352> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Arenella" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125352> .
+                
+              <urn:osm:way:geometry:uuid:307125352> ogc:asWKT "LineString((10.9142834 42.3641387,10.9142183 42.3640878))" .
+        
+              <urn:osm:way:uuid:307125353> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Arenella" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125353> .
+                
+              <urn:osm:way:geometry:uuid:307125353> ogc:asWKT "LineString((10.9143856 42.3638969,10.9143897 42.3639931,10.9143957 42.3640955))" .
+        
+              <urn:osm:way:uuid:307125354> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Arenella" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125354> .
+                
+              <urn:osm:way:geometry:uuid:307125354> ogc:asWKT "LineString((10.9144864 42.3641708,10.9143932 42.3641464,10.9142834 42.3641387,10.9140878 42.3641664))" .
+        
+              <urn:osm:way:uuid:307125355> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Arenella" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125355> .
+                
+              <urn:osm:way:geometry:uuid:307125355> ogc:asWKT "LineString((10.9142701 42.3640516,10.914374 42.3640781,10.9143957 42.3640955,10.914435 42.3641271,10.9144864 42.3641708))" .
+        
+              <urn:osm:way:uuid:307125356> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Bottai" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125356> .
+                
+              <urn:osm:way:geometry:uuid:307125356> ogc:asWKT "LineString((10.9016524 42.3658001,10.9015073 42.3657641,10.9014772 42.3657289,10.9014784 42.3656888))" .
+        
+              <urn:osm:way:uuid:307125357> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Mazzini" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125357> .
+                
+              <urn:osm:way:geometry:uuid:307125357> ogc:asWKT "LineString((10.9190942 42.3604547,10.9192919 42.3605014))" .
+        
+              <urn:osm:way:uuid:307125358> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125358> .
+                
+              <urn:osm:way:geometry:uuid:307125358> ogc:asWKT "LineString((10.8963172 42.3721153,10.8962399 42.3721386,10.8960483 42.3721973,10.8959134 42.3722246,10.895802 42.3722397,10.8956644 42.3722293,10.895385 42.3721942,10.8951279 42.3721408,10.8950206 42.3721116,10.8948174 42.3719891,10.8946034 42.371848,10.894484 42.3717658,10.8943445 42.3716557,10.8942452 42.3715875,10.8941568 42.3715347,10.89407 42.3715053,10.8939583 42.3714929,10.8938637 42.3715115,10.8937629 42.3715549,10.8936481 42.3716169,10.8935535 42.3716929,10.8934543 42.3717751,10.8933597 42.3718883,10.8932899 42.3719938,10.8931922 42.3720868,10.8930495 42.3722171,10.8929224 42.3723272,10.8928247 42.3723892,10.892713 42.3724373,10.8926091 42.3724683,10.8925052 42.37249,10.8923796 42.3724854,10.8922927 42.3724885,10.8922214 42.3724869,10.8921733 42.3724854,10.8921283 42.3725086,10.892102 42.372549,10.8921051 42.3725908,10.892133 42.372625,10.8921873 42.3726668,10.8922648 42.3726916,10.8923625 42.3727103,10.8924571 42.372718,10.8925486 42.3727134,10.8926696 42.3727009,10.892775 42.3726839,10.8928619 42.3726699,10.892941 42.3726653,10.893034 42.3726653,10.8930945 42.3726823,10.8931364 42.3727087,10.8931643 42.3727475,10.8931658 42.3727862,10.8931395 42.3728343,10.8931193 42.3728591,10.893079 42.3728777,10.8930045 42.3728839,10.8928991 42.3728932,10.8927518 42.3728917,10.8924835 42.372915,10.8923206 42.3729134,10.8922229 42.3729072,10.8921423 42.3728793,10.892026 42.3728545,10.8919221 42.3728266,10.8918306 42.3727986,10.8917484 42.3727723,10.8916833 42.3727568,10.8916119 42.3727521,10.8915545 42.3727521,10.8915127 42.3727723,10.8914817 42.3728157,10.8914661 42.3728607,10.8914739 42.3728994,10.8915065 42.372946,10.8915638 42.3729878,10.8916491 42.3730235,10.8917779 42.3730747,10.8920105 42.3731367,10.8922074 42.373191,10.8923796 42.3732282,10.8925564 42.3732623,10.8926587 42.3732639,10.8927766 42.373267,10.8928743 42.3732794,10.8929317 42.373298,10.8929766 42.373329,10.8929983 42.3733647,10.8930154 42.3734143,10.8930201 42.3734608,10.8930139 42.3735151,10.8929859 42.3735508,10.8929425 42.3735787,10.892896 42.3735834,10.8928262 42.3735896,10.8927285 42.373588,10.8926541 42.3735772,10.8925765 42.3735554,10.8924959 42.3735244,10.8924106 42.3735012,10.8923362 42.373481,10.8922726 42.3734779,10.8921687 42.3734717,10.892071 42.3734701,10.8919624 42.3734627,10.8918476 42.3734512,10.8917391 42.373436,10.8916429 42.3734345,10.8915096 42.3734128,10.8913979 42.373374,10.8913111 42.373312,10.8912041 42.3732592,10.8910986 42.3731957,10.8909916 42.3731507,10.890911 42.373098,10.8907884 42.3730189,10.8906721 42.372932,10.8905775 42.3728591,10.8905202 42.372794,10.8904674 42.372718,10.8904085 42.3726125,10.8903651 42.3725148,10.8903139 42.3724016,10.8902627 42.3722884,10.8902053 42.372169,10.890134 42.372017,10.8900797 42.3719038,10.8900332 42.3717829,10.8899774 42.3716743,10.8899076 42.3715254,10.8898331 42.3714556,10.8897835 42.37142,10.8897184 42.3713517,10.8896796 42.3712633,10.8896719 42.3711765,10.8896473 42.3710702,10.8896217 42.3709837,10.8896099 42.3709011,10.8895978 42.3708451))" .
+        
+              <urn:osm:way:uuid:307125359> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125359> .
+                
+              <urn:osm:way:geometry:uuid:307125359> ogc:asWKT "LineString((10.8963383 42.3720187,10.8963563 42.3719613,10.8963686 42.3719121))" .
+        
+              <urn:osm:way:uuid:307125360> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125360> .
+                
+              <urn:osm:way:geometry:uuid:307125360> ogc:asWKT "LineString((10.8963172 42.3721153,10.8963433 42.3720733,10.8963383 42.3720187))" .
+        
+              <urn:osm:way:uuid:307125361> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125361> .
+                
+              <urn:osm:way:geometry:uuid:307125361> ogc:asWKT "LineString((10.8965152 42.3720622,10.8964172 42.3720952,10.8963172 42.3721153))" .
+        
+              <urn:osm:way:uuid:307125362> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125362> .
+                
+              <urn:osm:way:geometry:uuid:307125362> ogc:asWKT "LineString((10.8965406 42.3718957,10.8965429 42.3719477,10.8965405 42.3720223,10.8965152 42.3720622))" .
+        
+              <urn:osm:way:uuid:307125363> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via Provinciale di Campese" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125363> .
+                
+              <urn:osm:way:geometry:uuid:307125363> ogc:asWKT "LineString((10.8963383 42.3720187,10.8963038 42.3719987,10.8961929 42.372026,10.896045 42.3720715,10.895934 42.3721043,10.8958034 42.3720988,10.8957368 42.3720843,10.8955985 42.3719568))" .
+        
+              <urn:osm:way:uuid:307125364> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via del Dolce" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125364> .
+                
+              <urn:osm:way:geometry:uuid:307125364> ogc:asWKT "LineString((10.8998413 42.3629448,10.8998599 42.3630073,10.8998717 42.3630513))" .
+        
+              <urn:osm:way:uuid:307125365> rdf:type schema:PostalAddress ;
+              
+                schema:streetAddress "Via delle Porte" ;            
+                ogc:geometry <urn:osm:way:geometry:uuid:307125365> .
+                
+              <urn:osm:way:geometry:uuid:307125365> ogc:asWKT "LineString((10.9021828 42.3640275,10.9021473 42.3641188,10.9020634 42.3642532,10.9020298 42.3643333,10.9019536 42.3644974,10.9019009 42.3646263,10.9018757 42.3648399))" .
+        
