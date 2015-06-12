@@ -3,15 +3,18 @@ package eu.fusepool.p3.osm;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.activation.MimeType;
 import javax.activation.MimeTypeParseException;
 
+import org.apache.clerezza.rdf.core.Triple;
 import org.apache.clerezza.rdf.core.TripleCollection;
 import org.apache.clerezza.rdf.core.UriRef;
 import org.apache.clerezza.rdf.core.impl.PlainLiteralImpl;
@@ -54,13 +57,17 @@ import eu.fusepool.p3.transformer.RdfGeneratingTransformer;
  */
 public class OsmRdfTransformer extends RdfGeneratingTransformer{
     
-    final static String DATA_MIME_TYPE = "application/xml"; //MIME type of the data fetched from the url
-    public static final String DATA_QUERY_PARAM = "data";
+    final static String XML_DATA_MIME_TYPE = "application/xml"; //MIME type of the data fetched from the url
+    final static String RDF_DATA_MIME_TYPE = "text/turtle"; //MIME type of the data fetched from the url
+    public static final String XML_DATA_URL_PARAM = "xml";
+    public static final String RDF_DATA_URL_PARAM = "rdf";
+    private static final UriRef schema_streetAddress = new UriRef("http://schema.org/streetAddress");
     
     private static final Logger log = LoggerFactory.getLogger(OsmRdfTransformer.class);
     
     JenaTextConfig jena = null;
     Dataset osmDataset = null;
+    Parser parser = null;
     
     OsmRdfTransformer() throws IOException{
         jena = new JenaTextConfig();
@@ -87,31 +94,42 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
     }
 
     /**
-     * Takes from the client some RDF data and optionally a URL to fetch OSM XML data to be used to geocode it.
-     * Returns the original RDF data with the enrichments.    
+     * Takes from the client an address in RDF of which it wants the 
+     * geographical coordinates in a format like 
+     * <http://example.org/res1> schema:streetAddress "Via Trento 1" ;
+     * The data to look into can be given in two ways
+     * 1) Providing the URL of the OSM XML file, parameter 'xml' (optional)
+     * 2) Providing the URL of the transformed RDF data, parameter 'rdf' (optional)
+     * The application caches the RDF data. If no URL are provided for the data the application
+     * looks in the cache. 
+     * Returns the original RDF data with geographical coordinates.    
      */
     @Override
     protected TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {
         TripleCollection resultGraph = new SimpleMGraph(); // graph to be sent back to the client
         Model dataGraph = ModelFactory.createDefaultModel(); // graph to store the data after the transformation
         String mediaType = entity.getType().toString();   
-        //Parser parser = Parser.getInstance();
-        //TripleCollection clientGraph = parser.parse( entity.getData(), mediaType);
-        String toponym = IOUtils.toString(entity.getData());
+        parser = Parser.getInstance();
+        TripleCollection inputGraph = parser.parse( entity.getData(), mediaType);        
+        //String toponym = IOUtils.toString(entity.getData());
+        String toponym = getToponym( inputGraph );
+        // add the input data to the result graph        
+        resultGraph.addAll(inputGraph);
+        // look up data set to search
+        String mimeType = entity.getType().toString();        
+        String dataUrl = null; // url of the XML or RDF data set
+        dataUrl = entity.getRequest().getParameter(XML_DATA_URL_PARAM);
+        //else if ( RDF_DATA_MIME_TYPE.equals(mimeType) )
+        //	dataUrl = entity.getRequest().getParameter(RDF_DATA_URL_PARAM);
         
-        // add the client data to the result graph
-        //resultGraph.addAll(clientGraph);
-        
-        String dataUrl = entity.getRequest().getParameter(DATA_QUERY_PARAM);
-        
-        // Fetch the XML data from the url and transforms it in RDF.
+        // Fetch the data from the url and transforms it into RDF.
         // The data url must be specified as a query parameter
         Dataset dataset = null;
         log.info("Data Url : " + dataUrl);
         if(dataUrl != null){
             OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
             if( (dataGraph = osmParser.jenaTransform()) != null ){
-                dataset =store(dataGraph);    
+                dataset = store(dataGraph);    
             }
             else {
                 throw new RuntimeException("Failed to transform the source data.");
@@ -122,12 +140,25 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
             dataset = osmDataset;
         }
         
-        // Geocoding: search for the street with the name sent by the client and return the geographic coordinates
-        if(toponym != null && !"".equals(toponym))
+        // Geocoding: search for the street with the name sent by the client 
+        // and return the geographic coordinates
+        if(toponym != null && ! "".equals(toponym))
             resultGraph = geocode(dataset, toponym);
         
         return resultGraph;
         
+    }
+    /*
+     * Extracts the object of the property schema:streetAddress that will be geocoded.
+     */
+    private String getToponym(TripleCollection inputGraph) {
+    	String toponym = "";
+    	Iterator<Triple> itriple = inputGraph.filter(null,schema_streetAddress,null);
+    	while ( itriple.hasNext() ) {
+    		Triple triple = itriple.next();
+    		toponym = ((PlainLiteralImpl) triple.getObject()).getLexicalForm();
+    	}
+    	return toponym;
     }
     /**
      * Store and index the new RDF data in a Jena triple store.
@@ -140,8 +171,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         File rdfFile = File.createTempFile("jenatdb-", ".ttl");
         OutputStream os = new FileOutputStream(rdfFile);
         RDFDataMgr.write(os, graph, Lang.TURTLE);
-        String defaultFile = getClass().getResource("trento-osm-keys.ttl").getFile();
-        jena.loadData(dataset, defaultFile);
+        //String defaultFile = getClass().getResource("trento-osm-keys.ttl").getFile();
+        //jena.loadData(dataset, defaultFile);
         jena.loadData(dataset, rdfFile.getAbsolutePath());
         return dataset;
     }

@@ -1,0 +1,4 @@
+@prefix schema: <http://schema.org/> .
+
+<http://example.org/res1> schema:streetAddress "Trento" .
+                          
