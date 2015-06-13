@@ -114,7 +114,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         //String toponym = IOUtils.toString(entity.getData());
         String toponym = getToponym( inputGraph );
         // add the input data to the result graph        
-        resultGraph.addAll(inputGraph);
+        //resultGraph.addAll(inputGraph);
         // look up data set to search
         String mimeType = entity.getType().toString();        
         String dataUrl = null; // url of the XML or RDF data set
@@ -191,12 +191,15 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
             "PREFIX schema: <http://schema.org/>" ,
             "PREFIX text: <http://jena.apache.org/text#>" ,
             "PREFIX ogc: <http://www.opengis.net/ont/geosparql#>") ;
+        
         String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?geo ?wkt " ,
                                     " { ?s text:query (schema:streetAddress '" + toponym + "') ;" ,
                                     "      schema:streetAddress ?street ;" ,
                                     "      ogc:geometry ?geo ." ,
                                     "   ?geo ogc:asWKT ?wkt ." ,
                                     " }") ;
+        
+        System.out.println(pre + "\n" + qs);
         
         ds.begin(ReadWrite.READ) ;
         try {

@@ -287,7 +287,7 @@ public class OsmXmlParser {
             resultGraph.add(new TripleImpl(wayUri, RDF.type, new UriRef("http://schema.org/PostalAddress")));
             resultGraph.add(new TripleImpl(wayUri, new UriRef("http://schema.org/streetAddress"), new PlainLiteralImpl(wayObj.getTagName())));
             UriRef geometryUri = new UriRef("http://fusepoolp3.eu/osm/geometry/" + wayId);
-            resultGraph.add(new TripleImpl(wayUri, new UriRef("http://www.opengis.net/ont/geosparql#hasGeometry"), geometryUri));
+            resultGraph.add(new TripleImpl(wayUri, new UriRef("http://www.opengis.net/ont/geosparql#geometry"), geometryUri));
             String linestring = getWktLineString(wayObj.getNodeReferenceList());
             resultGraph.add(new TripleImpl(geometryUri, new UriRef("http://www.opengis.net/ont/geosparql#asWKT"), new PlainLiteralImpl(linestring)));            
         }
@@ -307,7 +307,7 @@ public class OsmXmlParser {
             wayUri.addProperty(model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), model.createResource("http://schema.org/PostalAddress"));
             wayUri.addProperty(model.createProperty("http://schema.org/streetAddress"), wayObj.getTagName());
             Resource geometryUri = model.createResource("http://fusepoolp3.eu/osm/geometry/" + wayId);
-            geometryUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#hasGeometry"), geometryUri);
+            wayUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#geometry"), geometryUri);
             String linestring = getWktLineString(wayObj.getNodeReferenceList());
             geometryUri.addProperty(model.createProperty("http://www.opengis.net/ont/geosparql#asWKT"), linestring);            
         }
