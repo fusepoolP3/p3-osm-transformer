@@ -84,7 +84,7 @@ public class OsmRdfTransformerTest {
 		transformerBaseUri = "http://localhost:" + transformerServerPort + "/";
 		RestAssured.baseURI = transformerBaseUri;
 		TransformerServer server = new TransformerServer(transformerServerPort, false);
-		server.start( new OsmRdfTransformer() );
+		server.start( new OsmTransformerFactory() );
 	}
 	
 	@Rule

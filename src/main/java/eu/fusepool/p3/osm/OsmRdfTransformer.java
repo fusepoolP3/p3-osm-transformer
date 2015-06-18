@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,7 +15,10 @@ import java.util.Set;
 
 import javax.activation.MimeType;
 import javax.activation.MimeTypeParseException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 
+import org.apache.clerezza.rdf.core.Graph;
 import org.apache.clerezza.rdf.core.Triple;
 import org.apache.clerezza.rdf.core.TripleCollection;
 import org.apache.clerezza.rdf.core.UriRef;
@@ -21,6 +26,7 @@ import org.apache.clerezza.rdf.core.impl.PlainLiteralImpl;
 import org.apache.clerezza.rdf.core.impl.SimpleMGraph;
 import org.apache.clerezza.rdf.core.impl.TripleImpl;
 import org.apache.clerezza.rdf.core.serializedform.Parser;
+import org.apache.clerezza.rdf.core.serializedform.SupportedFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,29 +55,35 @@ import org.apache.lucene.store.RAMDirectory;
 
 import eu.fusepool.p3.transformer.HttpRequestEntity;
 import eu.fusepool.p3.transformer.RdfGeneratingTransformer;
+import eu.fusepool.p3.transformer.SyncTransformer;
+import eu.fusepool.p3.transformer.commons.Entity;
 
 /**
  * A OpenStreeetMap XML data transformer
- * @author luigi
+ * @author Luigi Selmi
  *
  */
-public class OsmRdfTransformer extends RdfGeneratingTransformer{
+public class OsmRdfTransformer extends RdfGeneratingTransformer {
     
     final static String XML_DATA_MIME_TYPE = "application/xml"; //MIME type of the data fetched from the url
     final static String RDF_DATA_MIME_TYPE = "text/turtle"; //MIME type of the data fetched from the url
-    public static final String XML_DATA_URL_PARAM = "xml";
-    public static final String RDF_DATA_URL_PARAM = "rdf";
+    private static final String XML_DATA_URL_PARAM = "xml";
+    private static final String XSLT_PATH = "/osm-way-node-keys.xsl";
     private static final UriRef schema_streetAddress = new UriRef("http://schema.org/streetAddress");
     
     private static final Logger log = LoggerFactory.getLogger(OsmRdfTransformer.class);
     
     JenaTextConfig jena = null;
     Dataset osmDataset = null;
-    Parser parser = null;
+    //Parser parser = null;
+    XsltProcessor processor = null;
+    String xmlUri = null; // url of the OSM/XML data set
     
-    OsmRdfTransformer() throws IOException{
+    OsmRdfTransformer(XsltProcessor processor, String xmlUri) {
         jena = new JenaTextConfig();
         osmDataset = jena.createMemDatasetFromCode();
+        this.xmlUri = xmlUri;
+        this.processor = processor;
         //String file = getClass().getResource("osm-giglio-ways.ttl").getFile();
         //jena.loadData(osmDataset, file);
     }
@@ -92,48 +104,63 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
             throw new RuntimeException(ex);
         }
     }
+    
+    /**
+     * Set of transformer output data formats supported.
+     */
+    @Override
+    public Set<MimeType> getSupportedOutputFormats() {
+        try {
+          Set<MimeType> mimeSet = new HashSet<MimeType>();             
+          mimeSet.add(new MimeType(RDF_DATA_MIME_TYPE));
+          return Collections.unmodifiableSet(mimeSet);
+        } catch (MimeTypeParseException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     /**
      * Takes from the client an address in RDF of which it wants the 
      * geographical coordinates in a format like 
      * <http://example.org/res1> schema:streetAddress "Via Trento 1" ;
-     * The data to look into can be given in two ways
-     * 1) Providing the URL of the OSM XML file, parameter 'xml' (optional)
-     * 2) Providing the URL of the transformed RDF data, parameter 'rdf' (optional)
+     * The url of the OSM/XML data set to look into must be provided
+     * as a parameter 'xml' (optional)     
      * The application caches the RDF data. If no URL are provided for the data the application
      * looks in the cache. 
      * Returns the original RDF data with geographical coordinates.    
      */
     @Override
-    protected TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {
+    public TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {    	
         TripleCollection resultGraph = new SimpleMGraph(); // graph to be sent back to the client
         Model dataGraph = ModelFactory.createDefaultModel(); // graph to store the data after the transformation
         String mediaType = entity.getType().toString();   
-        parser = Parser.getInstance();
-        TripleCollection inputGraph = parser.parse( entity.getData(), mediaType);        
-        //String toponym = IOUtils.toString(entity.getData());
-        String toponym = getToponym( inputGraph );
-        // add the input data to the result graph        
-        //resultGraph.addAll(inputGraph);
-        // look up data set to search
-        String mimeType = entity.getType().toString();        
-        String dataUrl = null; // url of the XML or RDF data set
-        dataUrl = entity.getRequest().getParameter(XML_DATA_URL_PARAM);
-        //else if ( RDF_DATA_MIME_TYPE.equals(mimeType) )
-        //	dataUrl = entity.getRequest().getParameter(RDF_DATA_URL_PARAM);
+        String contentLocation = null;
+        if ( entity.getContentLocation() != null ) {
+            contentLocation = entity.getContentLocation().toString();
+        }
+                
+        TripleCollection inputGraph = Parser.getInstance().parse( entity.getData(), mediaType);        
         
-        // Fetch the data from the url and transforms it into RDF.
-        // The data url must be specified as a query parameter
+        String toponym = getToponym( inputGraph );
+        
+        String mimeType = entity.getType().toString();        
+        
+        // Fetch the OSM data from the url and transforms it into RDF via XSL.
         Dataset dataset = null;
-        log.info("Data Url : " + dataUrl);
-        if(dataUrl != null){
-            OsmXmlParser osmParser = new OsmXmlParser(dataUrl);
-            if( (dataGraph = osmParser.jenaTransform()) != null ){
-                dataset = store(dataGraph);    
-            }
-            else {
-                throw new RuntimeException("Failed to transform the source data.");
-            }
+        log.info("Data Url : " + xmlUri);
+        if( xmlUri != null){
+        	try {
+        	  InputStream xslt = getClass().getResourceAsStream( XSLT_PATH );
+  			  InputStream osmRdfIn = processor.processXml(xslt, getOsmData(xmlUri), contentLocation);
+  			  RDFDataMgr.read(dataGraph, osmRdfIn, null, Lang.TURTLE);
+  			  dataset = store(dataGraph);
+  			}
+  			catch(TransformerConfigurationException tce){
+  				throw new RuntimeException(tce.getMessage());
+  			} 
+  			catch (TransformerException te) {				
+					throw new RuntimeException(te.getMessage());
+			}
             
         }
         else {
@@ -229,6 +256,12 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer{
         }
         
         return geoCodeRdf;
+    }
+    
+    private InputStream getOsmData(String xmlUri) throws IOException {
+    	URL osmDataUrl = new URL(xmlUri);
+    	URLConnection connection = osmDataUrl.openConnection();
+    	return connection.getInputStream();
     }
   
     @Override
