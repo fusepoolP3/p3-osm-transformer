@@ -43,8 +43,12 @@
            &lt;urn:osm:uuid:<xsl:value-of select="@id"/>&gt; rdf:type schema:PostalAddress ;
            schema:streetAddress "<xsl:value-of select="translate($tagAddress/@v,$double_quote,$nochar)"/><xsl:text> </xsl:text><xsl:value-of select="$tagHouseNumber/@v"/>" ;
            rdfs:seeAlso &lt;http://www.openstreetmap.org/node/<xsl:value-of select="@id"/>&gt; ;
+           <xsl:if test="$tagCity/@v != ''">
            schema:addressLocality "<xsl:value-of select="$tagCity/@v"/>" ;
+           </xsl:if>
+           <xsl:if test="$tagCountry/@v != ''">
            schema:addressCountry "<xsl:value-of select="$tagCountry/@v"/>" ;
+           </xsl:if>
            geo:lat "<xsl:value-of select="@lat"/>"^^xsd:double ;
            geo:long "<xsl:value-of select="@lon"/>"^^xsd:double .
          </xsl:if>
