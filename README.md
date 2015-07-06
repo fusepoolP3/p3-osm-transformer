@@ -7,12 +7,19 @@ triple store as a named graph. Only the way elements in the OSM file are used an
 search. The addresses sent by the client are searched in the triple store in order to retrieve the geographic coordinates. The original RDF 
 data and the coordinates are sent back to the client. 
 
+## Try it out
+Compile and start the transformer as described in the next section. The following command invokes the transformer on some test-data:
+
+    curl -i -X POST -H "Content-Type: text/turtle" -d @input_data.ttl http://localhost:7100/?xml=https://raw.githubusercontent.com/fusepoolP3/p3-osm-transformer/master/src/test/resources/eu/fusepool/p3/osm/giglio_island.osm  
+
+The needed input_data.ttl can be found in the sources or directly downloaded from [here](https://github.com/fusepoolP3/p3-osm-transformer/blob/master/src/test/resources/eu/fusepool/p3/osm/input_data.ttl).
+
 ## Compiling and Running
-Compile the project running the command
+After obtaining the sourcecode, compile the project using maven:
 
     mvn install
 
-Start the component with
+Then, start the transformer:
 
     mvn exec:java
 
