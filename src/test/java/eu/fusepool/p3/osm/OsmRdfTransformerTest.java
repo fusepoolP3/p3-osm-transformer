@@ -45,7 +45,9 @@ public class OsmRdfTransformerTest {
 		  
     final String XML_DATA = "osm-xml-example.osm"; // data to search for
 	//final String XML_DATA = "giglio_island.osm.osm"; // data to search for
-    private static final UriRef geosparql_geometry = new UriRef("http://www.opengis.net/ont/geosparql#geometry");
+    //private static final UriRef geosparql_geometry = new UriRef("http://www.opengis.net/ont/geosparql#geometry");
+    private static final UriRef geo_lat = new UriRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat");
+    
     final static String INPUT_DATA_MIME_TYPE = "text/turtle"; //MIME type of the data sent by the client
     final static String TRANSFORMER_MIME_TYPE = "text/turtle"; // MIME type of the transformer output
     // client input data to geocode
@@ -115,7 +117,7 @@ public class OsmRdfTransformerTest {
             // Parse the RDF data returned by the transformer after the geocoding 
             final Graph responseGraph = Parser.getInstance().parse(response.getData(), "text/turtle");
             //checks for the presence of a specific property added by the transformer to the input data
-            final Iterator<Triple> propertyIter = responseGraph.filter(null, geosparql_geometry, null);
+            final Iterator<Triple> propertyIter = responseGraph.filter(null, geo_lat, null);
             Assert.assertTrue("No specific property found in response", propertyIter.hasNext());
             //verify that the xml has been loaded from the data server (one call)
             //verify(1,getRequestedFor(urlEqualTo("/xml/" + XML_DATA)));

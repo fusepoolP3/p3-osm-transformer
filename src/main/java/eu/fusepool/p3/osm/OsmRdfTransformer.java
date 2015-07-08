@@ -68,8 +68,13 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
     final static String XML_DATA_MIME_TYPE = "application/xml"; //MIME type of the data fetched from the url
     final static String RDF_DATA_MIME_TYPE = "text/turtle"; //MIME type of the data fetched from the url
     private static final String XML_DATA_URL_PARAM = "xml";
-    private static final String XSLT_PATH = "/osm-way-node-keys.xsl";
+    //private static final String XSLT_PATH = "/osm-way-node-keys.xsl";
+    private static final String XSLT_PATH = "/osm-address.xsl";
     private static final UriRef schema_streetAddress = new UriRef("http://schema.org/streetAddress");
+    private static final UriRef schema_addressLocality = new UriRef("http://schema.org/addressLocality");
+    private static final UriRef schema_addressCountry = new UriRef("http://schema.org/addressCountry");
+    private static final UriRef geo_lat = new UriRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat");
+    private static final UriRef geo_lon = new UriRef("http://www.w3.org/2003/01/geo/wgs84_pos#lon");
     
     private static final Logger log = LoggerFactory.getLogger(OsmRdfTransformer.class);
     
@@ -121,13 +126,24 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
 
     /**
      * Takes from the client an address in RDF of which it wants the 
-     * geographical coordinates in a format like 
-     * <http://example.org/res1> schema:streetAddress "Via Trento 1" ;
-     * The url of the OSM/XML data set to look into must be provided
-     * as a parameter 'xml' (optional)     
+     * geographical coordinates in a format like
+     *  
+     * <> <http://schema.org/streetAddress> "Via Roma 1" ;
+     *                           <http://schema.org/addressLocality> "Trento" ;
+     *                           <http://schema.org/addressCountry> "IT" .
+     * 
+     * The format of the address should follow that used by the national post service of the country.
+     * The country must be provided by its 2 digit ISO code (i.e. "IT" for Italy)
+     * The url of the OSM/XML data set to look into must be provided as a parameter 'xml' (optional)     
      * The application caches the RDF data. If no URL are provided for the data the application
      * looks in the cache. 
-     * Returns the original RDF data with geographical coordinates.    
+     * Returns the original RDF data with geographical coordinates. 
+     *    
+     * <http://example.org/res1> <http://schema.org/streetAddress> "Via Roma 1" ;
+     *                           <http://schema.org/addressLocality> "Trento" ;
+     *                           <http://schema.org/addressCountry> "IT" ;
+     *                           <http://www.w3.org/2003/01/geo/wgs84_pos#lat> "46.3634673" ;
+     *                           <http://www.w3.org/2003/01/geo/wgs84_pos#long> "11.0357087" .
      */
     @Override
     public TripleCollection generateRdf(HttpRequestEntity entity) throws IOException {    	
@@ -141,7 +157,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
                 
         TripleCollection inputGraph = Parser.getInstance().parse( entity.getData(), mediaType);        
         
-        String toponym = getToponym( inputGraph );
+        Address address = getAddress( inputGraph );
         
         String mimeType = entity.getType().toString();        
         
@@ -169,8 +185,8 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
         
         // Geocoding: search for the street with the name sent by the client 
         // and return the geographic coordinates
-        if(toponym != null && ! "".equals(toponym))
-            resultGraph = geocode(dataset, toponym);
+        if(address != null && ! "".equals(address.getStreetAddress()))
+            resultGraph = geocodeAddress(dataset, address);
         
         return resultGraph;
         
@@ -178,14 +194,37 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
     /*
      * Extracts the object of the property schema:streetAddress that will be geocoded.
      */
-    private String getToponym(TripleCollection inputGraph) {
-    	String toponym = "";
+    private Address getAddress(TripleCollection inputGraph) {
+    	Address addr = new Address();    	
     	Iterator<Triple> itriple = inputGraph.filter(null,schema_streetAddress,null);
     	while ( itriple.hasNext() ) {
     		Triple triple = itriple.next();
-    		toponym = ((PlainLiteralImpl) triple.getObject()).getLexicalForm();
+    		UriRef addressUri = (UriRef) triple.getSubject();
+    		addr.setStreetAddress( ((PlainLiteralImpl) triple.getObject()).getLexicalForm() );
+    		// get locality
+    		Iterator<Triple> addresslocalityIter = inputGraph.filter(addressUri, schema_addressLocality, null) ;
+    		if ( addresslocalityIter != null ) {
+	    		while ( addresslocalityIter.hasNext() ) {
+	    			String locality = ((PlainLiteralImpl) addresslocalityIter.next().getObject()).getLexicalForm();	    
+	    			if ( ! "".equals(locality) ) {
+	    				addr.setLocality( locality );
+	    			}
+	    		}
+    		}    		   
+	        // get country code
+	    	Iterator<Triple> addressCountryIter = inputGraph.filter(addressUri, schema_addressCountry, null) ;
+	    	if ( addressCountryIter != null ) {
+	    		while ( addressCountryIter.hasNext() ) {
+	    			String countryCode = ((PlainLiteralImpl) addressCountryIter.next().getObject()).getLexicalForm();	    
+	    			if ( ! "".equals( countryCode ) ) {
+	    				addr.setCountryCode( countryCode );
+	    			}
+	    		}
+    		}
+    		
     	}
-    	return toponym;
+	    	
+    	return addr;
     }
     /**
      * Store and index the new RDF data in a Jena triple store.
@@ -205,11 +244,11 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
     }
     
     /**
-     * 
-     * @param graph The input graph contain a schema:streetAddress with the name of the street.
-     * @return Returns the geometry of the street that has been found with the coordinates serialized as WKT. 
+     * Search for an address (a node in OSM).
+     * @param graph The input graph contains a schema:streetAddress with the name of the street, the locality and the country code .
+     * @return Returns the geocoordinates of the street that has been found. 
      */
-    private TripleCollection geocode(Dataset ds, String toponym){
+    private TripleCollection geocodeAddress(Dataset ds, Address address){
         TripleCollection geoCodeRdf = new SimpleMGraph();
         
         String pre = StrUtils.strjoinNL( 
@@ -217,12 +256,72 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" ,
             "PREFIX schema: <http://schema.org/>" ,
             "PREFIX text: <http://jena.apache.org/text#>" ,
+            "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>" ,
             "PREFIX ogc: <http://www.opengis.net/ont/geosparql#>") ;
         
-        String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?geo ?wkt " ,
-                                    " { ?s text:query (schema:streetAddress '" + toponym + "') ;" ,
+        String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?lat ?lon" ,
+                                    " { ?s text:query (schema:streetAddress '" + address.getStreetAddress() + "') ;" ,
                                     "      schema:streetAddress ?street ;" ,
-                                    "      ogc:geometry ?geo ." ,
+                                    "      schema:addressLocality \"" + address.getLocality() + "\" ;" ,
+                                    "      schema:addressCountry \"" + address.getCountryCode() + "\" ;" ,
+                                    "      geo:lat ?lat ;" ,
+                                    "      geo:long ?lon ." ,                                                                       
+                                    " }") ;
+        
+        log.info(pre + "\n" + qs);
+        
+        ds.begin(ReadWrite.READ) ;
+        try {
+            Query q = QueryFactory.create(pre + "\n" + qs) ;
+            QueryExecution qexec = QueryExecutionFactory.create(q , ds) ;
+            //QueryExecUtils.executeQuery(q, qexec) ;
+            ResultSet results = qexec.execSelect();   
+            int numberOfAddresses = 0;
+            for( ; results.hasNext(); ){
+                QuerySolution sol = results.nextSolution();
+                String streetUriName = sol.getResource("s").getURI();
+                String streetName = sol.getLiteral("?street").getString();  
+                String latitude = sol.getLiteral("?lat").getLexicalForm();
+                String longitude = sol.getLiteral("?lon").getLexicalForm();
+                UriRef addressRef = new UriRef(streetUriName);                
+                geoCodeRdf.add(new TripleImpl(addressRef, schema_streetAddress, new PlainLiteralImpl(streetName)));
+                geoCodeRdf.add(new TripleImpl(addressRef, schema_addressLocality, new PlainLiteralImpl( address.getLocality())) );
+                geoCodeRdf.add(new TripleImpl(addressRef, schema_addressCountry, new PlainLiteralImpl( address.getCountryCode())) );
+                geoCodeRdf.add(new TripleImpl(addressRef, geo_lat, new PlainLiteralImpl( latitude )) );
+                geoCodeRdf.add(new TripleImpl(addressRef, geo_lon, new PlainLiteralImpl( longitude )) );
+                numberOfAddresses++;
+            }
+            log.info("Number of addresses like " + address.getStreetAddress() + " found: " + numberOfAddresses);
+        } 
+        finally { 
+            ds.end() ; 
+        }
+        
+        return geoCodeRdf;
+    }
+    
+    /**
+     * Search for a street (way in OSM) 
+     * @param graph The input graph contain a schema:streetAddress with the name of the street.
+     * @return Returns the geometry of the street that has been found with the coordinates serialized as WKT. 
+     */
+    private TripleCollection geocodeStreet(Dataset ds, Address address){
+        TripleCollection geoCodeRdf = new SimpleMGraph();
+        
+        String pre = StrUtils.strjoinNL( 
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" ,
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" ,
+            "PREFIX schema: <http://schema.org/>" ,
+            "PREFIX text: <http://jena.apache.org/text#>" ,
+            "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>" ,
+            "PREFIX ogc: <http://www.opengis.net/ont/geosparql#>") ;
+        
+        String qs = StrUtils.strjoinNL( "SELECT ?s ?street ?geometry ?wkt " ,
+                                    " { ?s text:query (schema:streetAddress '" + address.getStreetAddress() + "') ;" ,
+                                    "      schema:streetAddress ?street ;" ,
+                                    "      schema:addressLocality " + address.getLocality() + " ;" ,
+                                    "      schema:addressCountry " + address.getCountryCode() + " ;" ,
+                                    "      ogc:geometry ?geometry ." ,
                                     "   ?geo ogc:asWKT ?wkt ." ,
                                     " }") ;
         
@@ -244,12 +343,14 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
                 String wkt = sol.getLiteral("?wkt").getString();
                 UriRef streetRef = new UriRef(streetUriName);
                 UriRef geometryRef = new UriRef(geoUri);
-                geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://schema.org/streetAddress"), new PlainLiteralImpl(streetName)));
+                geoCodeRdf.add(new TripleImpl(streetRef, schema_streetAddress, new PlainLiteralImpl(streetName) ));
+                geoCodeRdf.add(new TripleImpl(streetRef, schema_addressLocality, new PlainLiteralImpl( address.getLocality())) );
+                geoCodeRdf.add(new TripleImpl(streetRef, schema_addressCountry, new PlainLiteralImpl( address.getCountryCode())) );
                 geoCodeRdf.add(new TripleImpl(streetRef, new UriRef("http://www.opengis.net/ont/geosparql#geometry"), geometryRef));
                 geoCodeRdf.add(new TripleImpl(geometryRef, new UriRef("http://www.opengis.net/ont/geosparql#asWKT"), new PlainLiteralImpl(wkt)));
                 numberOfToponyms++;
             }
-            log.info("Number of toponymis like " + toponym + " found: " + numberOfToponyms);
+            log.info("Number of toponymis like " + address.getStreetAddress() + " found: " + numberOfToponyms);
         } 
         finally { 
             ds.end() ; 

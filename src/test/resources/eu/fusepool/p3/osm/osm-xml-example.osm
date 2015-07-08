@@ -16,4 +16,12 @@
   <tag k="highway" v="unclassified"/>
   <tag k="name" v="Via Trento"/>
  </way>
+ 
+ <node id='848725923' timestamp='2012-01-16T20:22:21Z' uid='449569' user='Nautic' visible='true' version='2' changeset='10411731' lat='42.360077' lon='10.9195068'>
+    <tag k='addr:city' v='Giglio Porto' />
+    <tag k='addr:country' v='IT' />
+    <tag k='addr:housenumber' v='19' />
+    <tag k='addr:postcode' v='58013' />
+    <tag k='addr:street' v='Via Thaon de Revel 1' />
+  </node>
  </osm>

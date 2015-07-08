@@ -1,4 +1,6 @@
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/res1> schema:streetAddress "Trento" .
+<> schema:streetAddress "Via Thaon de Revel 1" ;
+   schema:addressLocality "Giglio Porto" ;
+   schema:addressCountry "IT" .
                           
