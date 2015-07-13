@@ -69,7 +69,7 @@ public class OsmRdfTransformer extends RdfGeneratingTransformer {
     final static String RDF_DATA_MIME_TYPE = "text/turtle"; //MIME type of the data fetched from the url
     private static final String XML_DATA_URL_PARAM = "xml";
     //private static final String XSLT_PATH = "/osm-way-node-keys.xsl";
-    private static final String XSLT_PATH = "/osm-address.xsl";
+    private static final String XSLT_PATH = "/osm-addresses.xsl";
     private static final UriRef schema_streetAddress = new UriRef("http://schema.org/streetAddress");
     private static final UriRef schema_addressLocality = new UriRef("http://schema.org/addressLocality");
     private static final UriRef schema_addressCountry = new UriRef("http://schema.org/addressCountry");
