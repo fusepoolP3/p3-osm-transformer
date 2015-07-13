@@ -46,7 +46,7 @@ The transformer takes as input an address described as in the example above. The
 
     curl -i -X POST -H "Content-Type: text/turtle" -d @input_data.ttl http://localhost:7100/?xml=https://raw.githubusercontent.com/fusepoolP3/p3-osm-transformer/master/src/test/resources/eu/fusepool/p3/osm/giglio_island.osm  
 
-The transformer will parse the XML document, transform the data into RDF and store the result in a local indexed triple store. The address is searched in the local graph and if an address is found with a similar it will be returned to the client with its geocoordinates.
+The transformer will parse the XML document, transform the data into RDF and store the result in a local indexed triple store. The address is searched in the local graph and if an address is found it will be returned to the client with its geocoordinates.
 
     <urn:osm:uuid:848724518>
         <http://schema.org/addressCountry>
