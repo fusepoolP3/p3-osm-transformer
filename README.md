@@ -1,4 +1,4 @@
-OpenStreetMap Geocoding Service [![Build Status](https://travis-ci.org/fusepoolP3/p3-osm-transformer.svg)]
+OpenStreetMap Geocoding Service ![Build Status](https://travis-ci.org/fusepoolP3/p3-osm-transformer.svg)
 ===============================
 
 The component is implemented as a transformer for Open Street Map XML data. It takes as input RDF data with the address to be geocoded specified with
