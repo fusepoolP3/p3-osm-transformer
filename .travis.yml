@@ -1,0 +1,11 @@
+language: java
+before_install: mvn install -DskipTests=true -DfinalName=p3-osm-transformer-$TRAVIS_TAG
+deploy:
+  provider: releases
+  api_key:
+    secure: SGzGGNiHpr1c64V3Lat0l3uBRZ2gU3RsvLlOAAjtzYjhyexFldyh5t23jc3qoNEilrkjmHWTty5SDKPfwi2bxmRbangykxIyhHdfmqTqwzI4vOyMyeor8HUGEshMkfOs5ZaogIZKr+s8O4/MC3/waUHmXmAArGDQsTKyqly3Hqs=
+  file: target/p3-osm-transformer-$TRAVIS_TAG-jar-with-dependencies.jar
+  on:
+    repo: fusepoolP3/p3-osm-transformer
+    tags: true
+    all_branches: true
