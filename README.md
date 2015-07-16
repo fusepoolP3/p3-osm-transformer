@@ -1,4 +1,4 @@
-OpenStreetMap Geocoding Service ![Build Status](https://travis-ci.org/fusepoolP3/p3-osm-transformer.svg)
+OpenStreetMap Geocoding Service 
 ===============================
 
 [![Build Status](https://travis-ci.org/fusepoolP3/p3-osm-transformer.svg)](https://travis-ci.org/fusepoolP3/p3-osm-transformer)
