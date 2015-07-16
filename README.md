@@ -9,7 +9,7 @@ The component is implemented as a transformer for Open Street Map XML data. It t
 2. locality
 3. country code
 
-The name of the street must be provided following the format used by the postal service of the country. The country code must be provided in two digit ISO format (e.g. "IT" for Italy). Optionally the URL of the OSM data set to search for the addresses can be provided as a URL paramenter (xml=<data set url>). The OSM data is fetched, transformed into RDF and stored in a local triple store as a named graph. The transformer extracts from the OSM/XML data nodes and ways that contain address information in the tags. Nodes and Ways elements that have the following attributes are extracted and mapped into RDF using the schema.org vocabulary. 
+The name of the street must be provided following the format used by the postal service of the country. The country code must be provided in two digit ISO format (e.g. "IT" for Italy). Optionally the URL of the OSM data set to search for the addresses can be provided as a URL paramenter (xml=\<data set url\>). The OSM data is fetched, transformed into RDF and stored in a local triple store as a named graph. The transformer extracts from the OSM/XML data nodes and ways that contain address information in the tags. Nodes and Ways elements that have the following attributes are extracted and mapped into RDF using the schema.org vocabulary. 
 
 - k='addr:street'  
 - k='addr:housenumber' 
@@ -24,7 +24,7 @@ The addr:street attribute value with  addr:housenumber are joined together follo
        schema:addressLocality "Giglio Porto" ;
        schema:addressCountry "IT" .
 
-The triple store is indexed whenever a new graph is added to it so that it is possible to make a keyword search. The addresses sent by the client are searched in the triple store in order to retrieve the geographic coordinates. The original RDF data and the coordinates are sent back to the client. 
+The triple store is indexed whenever a new graph is added to it so that it is possible to make a keyword search. The addresses sent by the client are searched in the triple store in order to retrieve the geographic coordinates. The address with its geocoordinates is sent back to the client in RDF if one is found. 
 
 ## Try it out
 Compile and start the transformer as described in the next section. The following command invokes the transformer on some test-data:
